@@ -1,0 +1,9 @@
+language: java
+jdk:
+  - oraclejdk8
+notification:
+  email:
+    recipients:
+      - merdlera@oregonstate.edu
+    on_success: never
+    on_failure: change
