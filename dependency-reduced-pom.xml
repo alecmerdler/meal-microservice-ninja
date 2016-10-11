@@ -91,6 +91,7 @@
         <configuration>
           <useDefaultExcludes>true</useDefaultExcludes>
           <port>8000</port>
+          <sslPort>7443</sslPort>
         </configuration>
       </plugin>
       <plugin>

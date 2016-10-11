@@ -16,28 +16,70 @@
 
 package controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import ninja.Result;
 import ninja.Results;
 import rx.Observable;
+import rx.Subscriber;
+import utils.UnirestObjectMapper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Singleton
 public class ApplicationController {
 
+    private String serviceUrl = "http://localhost:8080";
+    private ObjectMapper objectMapper;
+
     @Inject
     public ApplicationController() {
-
+        Unirest.setObjectMapper(new UnirestObjectMapper());
+        this.objectMapper = new ObjectMapper();
     }
 
     public Result subscribeTest() {
         Result response = Results.json();
-        Observable.just("Hello world!")
-                .subscribe(s -> response.render(s));
+
+        makeRequest()
+                .subscribe(new Subscriber<Map<String, Object>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onNext(Map<String, Object> responseBody) {
+                        response.json().render(responseBody);
+                    }
+                });
 
         return response;
     }
 
+    private Observable<Map<String, Object>> makeRequest() {
+        return Observable.defer(() -> {
+            Map responseBody = new HashMap();
+            try {
+                HttpResponse<JsonNode> response = Unirest.get(serviceUrl)
+                        .asJson();
+                responseBody = objectMapper.readValue(response.getBody().getObject().toString(), HashMap.class);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
+            return Observable.just(responseBody);
+        });
+    }
 }
