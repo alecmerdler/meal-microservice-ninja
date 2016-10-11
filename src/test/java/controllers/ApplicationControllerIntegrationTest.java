@@ -21,11 +21,18 @@ import com.google.inject.Injector;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
+import dao.MealDao;
+import dao.TagDao;
+import models.Meal;
+import models.Tag;
 import ninja.NinjaTest;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.junit.Before;
 import org.junit.Test;
 import utils.UnirestObjectMapper;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -33,11 +40,21 @@ import static org.junit.Assert.fail;
 public class ApplicationControllerIntegrationTest extends NinjaTest {
 
     ObjectMapper objectMapper;
+    MealDao mealDao;
+    TagDao tagDao;
+    String apiUrl;
+    String mealsUrl;
+    String tagsUrl;
 
     @Before
     public void beforeEach() {
         Injector injector = getInjector();
         objectMapper = new ObjectMapper();
+        mealDao = injector.getInstance(MealDao.class);
+        tagDao = injector.getInstance(TagDao.class);
+        apiUrl = getServerAddress() + "/api/v1";
+        mealsUrl = apiUrl + "/meals";
+        tagsUrl = apiUrl + "/tags";
 
         Unirest.setObjectMapper(new UnirestObjectMapper());
     }
@@ -63,6 +80,28 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
 
             assertEquals(200, response.getStatus());
             assertEquals("running", response.getBody().getObject().get("status"));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testListMealsSomeExist() {
+        Tag tag = new Tag("Fruit");
+        Meal firstMeal = new Meal("Banana");
+        Meal secondMeal = new Meal("Meat");
+        mealDao.create(firstMeal);
+        mealDao.create(secondMeal);
+        tag.addMeal(firstMeal);
+        Tag persistedTag = tagDao.create(tag);
+
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + persistedTag.getId())
+                    .asJson();
+            List<Meal> mealsWithTag = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
+
+            assertEquals(200, response.getStatus());
+            assertEquals(1, mealsWithTag.size());
         } catch (Exception e) {
             fail(e.getMessage());
         }

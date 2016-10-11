@@ -1,9 +1,8 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by alec on 10/11/16.
@@ -14,14 +13,21 @@ public class Meal extends Model {
     @Column
     private String mealName;
 
-    @OneToMany
-    private Set<Tag> tags;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="meal_tag", joinColumns = @JoinColumn(name = "meal_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags;
 
     public Meal() {
-
+        this.mealName = "";
+        this.tags = new ArrayList<>();
     }
 
-    public Meal(String mealName, Set<Tag> tags) {
+    public Meal(String mealName) {
+        this.mealName = mealName;
+        this.tags = new ArrayList<>();
+    }
+
+    public Meal(String mealName, List<Tag> tags) {
         this.mealName = mealName;
         this.tags = tags;
     }
@@ -34,12 +40,16 @@ public class Meal extends Model {
         this.mealName = mealName;
     }
 
-    public Set<Tag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
     }
 
 }

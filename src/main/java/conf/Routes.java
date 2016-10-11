@@ -24,12 +24,18 @@ import ninja.application.ApplicationRoutes;
 
 public class Routes implements ApplicationRoutes {
 
+    private String apiUrl = "/api/v1";
+    private String mealsUrl = apiUrl + "/meals";
+    private String tagsUrl = apiUrl + "/tags";
+
     @Override
     public void init(Router router) {
         router.GET().route("/").with(Results.json().render("name", "service-2"));
         router.GET().route("/healthcheck").with(Results.json().render("status", "running"));
 
         router.GET().route("/subscribe").with(ApplicationController.class, "subscribeTest");
+
+        router.GET().route(mealsUrl).with(ApplicationController.class, "listMeals");
     }
 
 }

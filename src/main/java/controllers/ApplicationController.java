@@ -22,13 +22,18 @@ import com.google.inject.Singleton;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
+import dao.MealDao;
+import dao.TagDao;
+import models.Meal;
+import models.Tag;
 import ninja.Result;
 import ninja.Results;
+import ninja.params.Param;
 import rx.Observable;
 import rx.Subscriber;
-import utils.UnirestObjectMapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -37,11 +42,14 @@ public class ApplicationController {
 
     private String serviceUrl = "http://localhost:8080";
     private ObjectMapper objectMapper;
+    private MealDao mealDao;
+    private TagDao tagDao;
 
     @Inject
-    public ApplicationController() {
-        Unirest.setObjectMapper(new UnirestObjectMapper());
+    public ApplicationController(MealDao mealDao, TagDao tagDao) {
         this.objectMapper = new ObjectMapper();
+        this.mealDao = mealDao;
+        this.tagDao = tagDao;
     }
 
     public Result subscribeTest() {
@@ -64,6 +72,25 @@ public class ApplicationController {
                         response.json().render(responseBody);
                     }
                 });
+
+        return response;
+    }
+
+    public Result listMeals(@Param("tagId") Long id) {
+        Result response = Results.json();
+
+        // Debugging
+        Tag tag = new Tag("Fruit");
+        Meal firstMeal = new Meal("Banana");
+        Meal secondMeal = new Meal("Meat");
+        mealDao.create(firstMeal);
+        mealDao.create(secondMeal);
+        tag.addMeal(firstMeal);
+        tagDao.create(tag);
+
+//        List<Meal> mealsWithTag = mealDao.findByTagId(id);
+        List<Meal> allMeals = mealDao.findAll();
+        response.render(allMeals);
 
         return response;
     }

@@ -18,12 +18,21 @@ package conf;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import com.mashape.unirest.http.Unirest;
+import dao.MealDao;
+import dao.MealDaoImpl;
+import dao.TagDao;
+import dao.TagDaoImpl;
+import utils.UnirestObjectMapper;
 
 @Singleton
 public class Module extends AbstractModule {
 
     protected void configure() {
+        Unirest.setObjectMapper(new UnirestObjectMapper());
 
+        bind(MealDao.class).to(MealDaoImpl.class);
+        bind(TagDao.class).to(TagDaoImpl.class);
     }
 
 }
