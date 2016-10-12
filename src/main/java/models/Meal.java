@@ -48,8 +48,10 @@ public class Meal extends Model {
         this.tags = tags;
     }
 
-    public void addTag(Tag tag) {
+    public Meal addTag(Tag tag) {
         tags.add(tag);
+
+        return this;
     }
 
 }

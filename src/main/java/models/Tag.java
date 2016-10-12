@@ -50,7 +50,9 @@ public class Tag extends Model {
         this.meals = meals;
     }
 
-    public void addMeal(Meal meal) {
+    public Tag addMeal(Meal meal) {
         meals.add(meal);
+
+        return this;
     }
 }

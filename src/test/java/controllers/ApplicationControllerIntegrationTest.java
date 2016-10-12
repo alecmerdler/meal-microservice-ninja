@@ -106,27 +106,37 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
     }
 
     @Test
-    public void testListMealsByTag() {
-        List<Meal> newMeals = new ArrayList<>();
-        List<Meal> createdMeals = new ArrayList<>();
-        Meal firstMeal = new Meal("Banana");
-        Meal secondMeal = new Meal("Meat");
+    public void testListMealsByTagOneExists() {
         Tag fruitTag = new Tag("Fruit");
-        newMeals.add(firstMeal);
-        newMeals.add(secondMeal);
-        for (Meal meal : newMeals) {
-            Meal persistedMeal = mealDao.create(meal);
-            persistedMeal.addTag(fruitTag);
-            persistedMeal = mealDao.update(persistedMeal);
-            createdMeals.add(persistedMeal);
-        }
+        Meal createdFirstMeal = mealDao.create(new Meal("Banana").addTag(fruitTag));
+        mealDao.create(new Meal("Steak"));
+
         try {
-            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + createdMeals.get(0).getTags().get(0).getId())
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + createdFirstMeal.getTags().get(0).getId())
                     .asJson();
             List<Meal> mealsWithTag = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
 
             assertEquals(200, response.getStatus());
             assertEquals(1, mealsWithTag.size());
+            assertEquals(fruitTag.getTagName(), mealsWithTag.get(0).getTags().get(0).getTagName());
+            assertEquals(1, tagDao.findAll().size());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testListMealsByTagNoneExist() {
+        Tag tag = tagDao.create(new Tag("Meat"));
+        mealDao.create(new Meal("Banana"));
+
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + tag.getId())
+                    .asJson();
+            List<Meal> mealsWithTag = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
+
+            assertEquals(200 ,response.getStatus());
+            assertEquals(0, mealsWithTag.size());
         } catch (Exception e) {
             fail(e.getMessage());
         }
