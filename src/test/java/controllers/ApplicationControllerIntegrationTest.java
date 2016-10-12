@@ -24,6 +24,7 @@ import com.mashape.unirest.http.Unirest;
 import dao.MealDao;
 import dao.TagDao;
 import models.Meal;
+import models.Tag;
 import ninja.NinjaTest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -89,7 +90,8 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
     public void testListMealsSomeExist() {
         List<Meal> newMeals = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            mealDao.create(new Meal("Banana"));
+            Meal newMeal = mealDao.create(new Meal("Banana"));
+            newMeals.add(newMeal);
         }
         try {
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl)
@@ -109,11 +111,14 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
         List<Meal> createdMeals = new ArrayList<>();
         Meal firstMeal = new Meal("Banana");
         Meal secondMeal = new Meal("Meat");
+        Tag fruitTag = new Tag("Fruit");
         newMeals.add(firstMeal);
         newMeals.add(secondMeal);
         for (Meal meal : newMeals) {
-            mealDao.create(meal);
-            createdMeals.add(meal);
+            Meal persistedMeal = mealDao.create(meal);
+            persistedMeal.addTag(fruitTag);
+            persistedMeal = mealDao.update(persistedMeal);
+            createdMeals.add(persistedMeal);
         }
         try {
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + createdMeals.get(0).getTags().get(0).getId())

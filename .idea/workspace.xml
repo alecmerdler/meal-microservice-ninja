@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="45eba78f-a1e3-45a3-b5cb-ea9e8f2f4401" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dao/BaseDao.java" afterPath="$PROJECT_DIR$/src/main/java/dao/BaseDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dao/MealDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/dao/MealDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/Meal.java" afterPath="$PROJECT_DIR$/src/main/java/models/Meal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/Tag.java" afterPath="$PROJECT_DIR$/src/main/java/models/Tag.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java" />
     </list>
     <ignored path="ninja-service.iws" />
@@ -32,8 +28,8 @@
       <file leaf-file-name="ApplicationControllerIntegrationTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+            <state relative-caret-position="389">
+              <caret line="119" column="58" selection-start-line="119" selection-start-column="58" selection-end-line="119" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,8 +40,8 @@
       <file leaf-file-name="ApplicationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+            <state relative-caret-position="279">
+              <caret line="88" column="45" selection-start-line="88" selection-start-column="45" selection-end-line="88" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1430,7 +1426,7 @@
       <workItem from="1475626131897" duration="107279000" />
       <workItem from="1476158538787" duration="12423000" />
       <workItem from="1476172067620" duration="184000" />
-      <workItem from="1476172260192" duration="29999000" />
+      <workItem from="1476172260192" duration="30473000" />
     </task>
     <servers />
   </component>
@@ -1441,37 +1437,37 @@
     <history-entry file="ApplicationControllerIntegrationTest_testListMealsByTag - 2016.10.12 at 11h 44m 23s.xml">
       <configuration name="ApplicationControllerIntegrationTest.testListMealsByTag" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 16h 24m 02s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
+    <history-entry file="ApplicationControllerIntegrationTest_testListMealsByTag - 2016.10.12 at 15h 04m 55s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testListMealsByTag" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 16h 26m 57s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
+    <history-entry file="ApplicationControllerIntegrationTest_testListMealsByTag - 2016.10.12 at 15h 05m 10s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testListMealsByTag" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 16h 28m 15s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
+    <history-entry file="ApplicationControllerIntegrationTest_testListMealsByTag - 2016.10.12 at 15h 05m 40s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testListMealsByTag" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 16h 28m 44s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
+    <history-entry file="ApplicationControllerIntegrationTest_testListMealsByTag - 2016.10.12 at 15h 06m 09s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testListMealsByTag" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 17h 01m 58s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 17h 50m 08s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 17h 51m 14s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
+    <history-entry file="ApplicationControllerIntegrationTest_testListMealsByTag - 2016.10.12 at 15h 07m 46s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testListMealsByTag" configurationId="JUnit" />
     </history-entry>
     <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.11 at 18h 37m 32s.xml">
       <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.12 at 15h 03m 47s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ApplicationControllerIntegrationTest_testListMealsSomeExist - 2016.10.12 at 15h 04m 41s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testListMealsSomeExist" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149885000" />
+    <option name="totallyTimeSpent" value="150359000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="900" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1481,7 +1477,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988358" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21235521" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31435964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31435964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1495,7 +1491,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2001287" sideWeight="0.50714284" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3182406" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3182406" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1528,13 +1524,25 @@
           <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java</url>
-          <line>118</line>
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java</url>
+          <line>84</line>
           <properties />
-          <option name="timeStamp" value="122" />
+          <option name="timeStamp" value="124" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java</url>
+          <line>81</line>
+          <properties />
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java</url>
+          <line>123</line>
+          <properties />
+          <option name="timeStamp" value="127" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="123" />
+      <option name="time" value="128" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
@@ -1952,8 +1960,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+        <state relative-caret-position="279">
+          <caret line="88" column="45" selection-start-line="88" selection-start-column="45" selection-end-line="88" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1962,8 +1970,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+        <state relative-caret-position="389">
+          <caret line="119" column="58" selection-start-line="119" selection-start-column="58" selection-end-line="119" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

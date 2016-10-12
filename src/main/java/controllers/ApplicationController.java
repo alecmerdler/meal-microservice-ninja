@@ -82,7 +82,12 @@ public class ApplicationController {
         List<Meal> allMeals = new ArrayList<>();
 
         try {
-            allMeals = mealDao.findByTagId(id);
+            if (id != null) {
+                allMeals = mealDao.findByTagId(id);
+            }
+            else {
+                allMeals = mealDao.findAll();
+            }
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage());
         }
