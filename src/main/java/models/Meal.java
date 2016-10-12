@@ -13,7 +13,7 @@ public class Meal extends Model {
     @Column
     private String mealName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="meal_tag", joinColumns = @JoinColumn(name = "meal_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 

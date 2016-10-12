@@ -24,7 +24,6 @@ import com.mashape.unirest.http.Unirest;
 import dao.MealDao;
 import dao.TagDao;
 import models.Meal;
-import models.Tag;
 import ninja.NinjaTest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -32,6 +31,7 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.UnirestObjectMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -75,7 +75,7 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
     @Test
     public void testHealthcheck() {
         try {
-            HttpResponse<JsonNode> response = Unirest.get(getServerAddress())
+            HttpResponse<JsonNode> response = Unirest.get(getServerAddress() + "/healthcheck")
                     .asJson();
 
             assertEquals(200, response.getStatus());
@@ -87,16 +87,36 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
 
     @Test
     public void testListMealsSomeExist() {
-        Tag tag = new Tag("Fruit");
+        List<Meal> newMeals = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            mealDao.create(new Meal("Banana"));
+        }
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl)
+                    .asJson();
+            List<Meal> allMeals = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
+
+            assertEquals(200, response.getStatus());
+            assertEquals(newMeals.size(), allMeals.size());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testListMealsByTag() {
+        List<Meal> newMeals = new ArrayList<>();
+        List<Meal> createdMeals = new ArrayList<>();
         Meal firstMeal = new Meal("Banana");
         Meal secondMeal = new Meal("Meat");
-        mealDao.create(firstMeal);
-        mealDao.create(secondMeal);
-        tag.addMeal(firstMeal);
-        Tag persistedTag = tagDao.create(tag);
-
+        newMeals.add(firstMeal);
+        newMeals.add(secondMeal);
+        for (Meal meal : newMeals) {
+            mealDao.create(meal);
+            createdMeals.add(meal);
+        }
         try {
-            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + persistedTag.getId())
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + createdMeals.get(0).getTags().get(0).getId())
                     .asJson();
             List<Meal> mealsWithTag = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
 

@@ -25,16 +25,18 @@ import com.mashape.unirest.http.Unirest;
 import dao.MealDao;
 import dao.TagDao;
 import models.Meal;
-import models.Tag;
 import ninja.Result;
-import ninja.Results;
+import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
 import rx.Observable;
 import rx.Subscriber;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static ninja.Results.json;
 
 
 @Singleton
@@ -53,7 +55,7 @@ public class ApplicationController {
     }
 
     public Result subscribeTest() {
-        Result response = Results.json();
+        Result response = json();
 
         makeRequest()
                 .subscribe(new Subscriber<Map<String, Object>>() {
@@ -77,22 +79,15 @@ public class ApplicationController {
     }
 
     public Result listMeals(@Param("tagId") Long id) {
-        Result response = Results.json();
+        List<Meal> allMeals = new ArrayList<>();
 
-        // Debugging
-        Tag tag = new Tag("Fruit");
-        Meal firstMeal = new Meal("Banana");
-        Meal secondMeal = new Meal("Meat");
-        mealDao.create(firstMeal);
-        mealDao.create(secondMeal);
-        tag.addMeal(firstMeal);
-        tagDao.create(tag);
+        try {
+            allMeals = mealDao.findByTagId(id);
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
+        }
 
-//        List<Meal> mealsWithTag = mealDao.findByTagId(id);
-        List<Meal> allMeals = mealDao.findAll();
-        response.render(allMeals);
-
-        return response;
+        return json().render(allMeals);
     }
 
     private Observable<Map<String, Object>> makeRequest() {

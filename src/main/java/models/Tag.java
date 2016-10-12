@@ -1,8 +1,8 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,8 @@ public class Tag extends Model {
     @Column
     private String tagName;
 
-    @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tags", fetch = FetchType.EAGER)
     private List<Meal> meals;
 
     public Tag() {

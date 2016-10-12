@@ -65,10 +65,10 @@ public class BaseDao<T extends Model> implements Dao<T> {
             throw new PersistenceException("Model should not be null");
         }
         EntityManager entityManager = entityManagerProvider.get();
-        entityManager.merge(model);
+        T updatedModel = entityManager.merge(model);
         entityManager.flush();
 
-        return model;
+        return updatedModel;
     }
 
     @Override
