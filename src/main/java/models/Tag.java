@@ -2,7 +2,10 @@ package models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,7 @@ public class Tag extends Model {
     private String tagName;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tags", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tags")
     private List<Meal> meals;
 
     public Tag() {
@@ -32,6 +35,12 @@ public class Tag extends Model {
     public Tag(String tagName, List<Meal> meals) {
         this.tagName = tagName;
         this.meals = meals;
+    }
+
+    public Tag(String tagName, List<Meal> meals, Long id) {
+        this.tagName = tagName;
+        this.meals = meals;
+        this.id = id;
     }
 
     public String getTagName() {

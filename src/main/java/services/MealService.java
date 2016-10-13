@@ -13,5 +13,13 @@ public interface MealService {
 
     List<Meal> listAllMeals() throws ServiceException;
 
-    public Optional<Meal> listMealsByTagName(String tagName) throws ServiceException;
+    List<Meal> listMealsByTagId(Long tagId) throws ServiceException;
+
+    Optional<Meal> createMeal(Meal meal) throws ServiceException;
+
+    Optional<Meal> retrieveMealById(Long id) throws ServiceException;
+
+    Optional<Meal> updateMeal(Meal meal) throws ServiceException;
+
+    boolean destroyMeal(Meal meal) throws ServiceException;
 }

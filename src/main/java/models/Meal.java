@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Meal extends Model {
 
-    @Column
+    @Column(nullable = false)
     private String mealName;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -30,6 +30,12 @@ public class Meal extends Model {
     public Meal(String mealName, List<Tag> tags) {
         this.mealName = mealName;
         this.tags = tags;
+    }
+
+    public Meal(String mealName, List<Tag> tags, Long id) {
+        this.mealName = mealName;
+        this.tags = tags;
+        this.id = id;
     }
 
     public String getMealName() {

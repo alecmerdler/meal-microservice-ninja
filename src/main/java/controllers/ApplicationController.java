@@ -80,7 +80,6 @@ public class ApplicationController {
 
     public Result listMeals(@Param("tagId") Long id) {
         List<Meal> allMeals = new ArrayList<>();
-
         try {
             if (id != null) {
                 allMeals = mealDao.findByTagId(id);
