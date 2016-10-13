@@ -19,22 +19,17 @@ package controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import dao.MealDao;
 import dao.TagDao;
 import models.Meal;
+import ninja.Context;
 import ninja.Result;
 import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
-import rx.Observable;
-import rx.Subscriber;
+import ninja.params.PathParam;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static ninja.Results.json;
 
@@ -54,30 +49,6 @@ public class ApplicationController {
         this.tagDao = tagDao;
     }
 
-    public Result subscribeTest() {
-        Result response = json();
-
-        makeRequest()
-                .subscribe(new Subscriber<Map<String, Object>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-
-                    }
-
-                    @Override
-                    public void onNext(Map<String, Object> responseBody) {
-                        response.json().render(responseBody);
-                    }
-                });
-
-        return response;
-    }
-
     public Result listMeals(@Param("tagId") Long id) {
         List<Meal> allMeals = new ArrayList<>();
         try {
@@ -94,18 +65,19 @@ public class ApplicationController {
         return json().render(allMeals);
     }
 
-    private Observable<Map<String, Object>> makeRequest() {
-        return Observable.defer(() -> {
-            Map responseBody = new HashMap();
-            try {
-                HttpResponse<JsonNode> response = Unirest.get(serviceUrl)
-                        .asJson();
-                responseBody = objectMapper.readValue(response.getBody().getObject().toString(), HashMap.class);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+    public Result createMeal() {
+        throw new BadRequestException("Route not implemented");
+    }
 
-            return Observable.just(responseBody);
-        });
+    public Result retrieveMeal(@PathParam("id") Long id) {
+        throw new BadRequestException("Route not implemented");
+    }
+
+    public Result updateMeal(@PathParam("id") Long id, Context context, Meal updatedMeal) {
+        throw new BadRequestException("Route not implemented");
+    }
+
+    public Result destroyMeal(@PathParam("id") Long id) {
+        throw new BadRequestException("Route not implemented");
     }
 }

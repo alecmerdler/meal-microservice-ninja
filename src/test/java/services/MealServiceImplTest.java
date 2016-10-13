@@ -68,4 +68,44 @@ public class MealServiceImplTest {
 
         assertEquals(mealsWithTag.size(), mealService.listMealsByTagId(tag.getId()).size());
     }
+
+    @Test
+    public void testCreateMealValid() {
+
+    }
+
+    @Test
+    public void testCreateMealInvalid() {
+
+    }
+
+    @Test
+    public void testRetrieveMealByIdExists() {
+
+    }
+
+    @Test
+    public void testRetrieveMealByIdDoesNotExist() {
+
+    }
+
+    @Test
+    public void testUpdateMealValid() {
+
+    }
+
+    @Test
+    public void testUpdateMealInvalid() {
+
+    }
+
+    @Test
+    public void testDestroyMealExists() {
+
+    }
+
+    @Test
+    public void testDestroyMealDoesNotExist() {
+
+    }
 }
