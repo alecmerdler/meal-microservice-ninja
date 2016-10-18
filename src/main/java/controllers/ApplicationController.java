@@ -27,9 +27,12 @@ import ninja.Result;
 import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
 import ninja.params.PathParam;
+import rx.schedulers.Schedulers;
+import services.MessageService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static ninja.Results.json;
 
@@ -37,16 +40,30 @@ import static ninja.Results.json;
 @Singleton
 public class ApplicationController {
 
-    private String serviceUrl = "http://localhost:8080";
-    private ObjectMapper objectMapper;
-    private MealDao mealDao;
-    private TagDao tagDao;
+    private final String serviceUrl = "http://localhost:8080";
+    private final ObjectMapper objectMapper;
+    private final MessageService messageService;
+    private final MealDao mealDao;
+    private final TagDao tagDao;
+    private List<Map<String, Object>> messages = new ArrayList<>();
 
     @Inject
     public ApplicationController(MealDao mealDao, TagDao tagDao) {
         this.objectMapper = new ObjectMapper();
+        this.messageService = new MessageService();
         this.mealDao = mealDao;
         this.tagDao = tagDao;
+    }
+
+    public Result message() {
+        messageService.getMessages()
+                .subscribeOn(Schedulers.computation())
+                .subscribe((Map<String, Object> messageMap) -> {
+                    System.out.println(messageMap.toString());
+                    messages.add(messageMap);
+                });
+
+        return json().render(messages);
     }
 
     public Result listMeals(@Param("tagId") Long id) {

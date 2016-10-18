@@ -16,8 +16,9 @@ import java.util.UUID;
  */
 public class MessageService {
 
+    // TODO: Move to configuration file
     private final String brokerUrl = "tcp://52.25.184.170:1884";
-    private final String sensorDataTopic = "sensorData";
+    private final String topic = "test";
     private final String clientId = UUID.randomUUID().toString();
     private IMqttClient client;
     private MemoryPersistence persistence;
@@ -40,9 +41,11 @@ public class MessageService {
     public Observable<Map<String, Object>> getMessages() {
         return Observable.create((subscriber) -> {
             try {
-                client.setCallback(new SubscribeCallback(subscriber));
-                client.connect();
-                client.subscribe(sensorDataTopic);
+                if (!client.isConnected()) {
+                    client.setCallback(new SubscribeCallback(subscriber));
+                    client.connect();
+                }
+                client.subscribe(topic);
             } catch (MqttException me) {
                 me.printStackTrace();
             }
