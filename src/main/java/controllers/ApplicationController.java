@@ -28,9 +28,10 @@ import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
 import ninja.params.PathParam;
 import rx.schedulers.Schedulers;
-import services.MessageService;
+import services.MessageServiceMQTT;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,28 +43,48 @@ public class ApplicationController {
 
     private final String serviceUrl = "http://localhost:8080";
     private final ObjectMapper objectMapper;
-    private final MessageService messageService;
+    private final MessageServiceMQTT messageService;
     private final MealDao mealDao;
     private final TagDao tagDao;
-    private List<Map<String, Object>> messages = new ArrayList<>();
 
     @Inject
     public ApplicationController(MealDao mealDao, TagDao tagDao) {
         this.objectMapper = new ObjectMapper();
-        this.messageService = new MessageService();
+        this.messageService = new MessageServiceMQTT();
         this.mealDao = mealDao;
         this.tagDao = tagDao;
     }
 
-    public Result message() {
-        messageService.getMessages()
-                .subscribeOn(Schedulers.computation())
-                .subscribe((Map<String, Object> messageMap) -> {
-                    System.out.println(messageMap.toString());
-                    messages.add(messageMap);
-                });
+    public Result listMessages() {
+        final List<Map<String, Object>> messages = new ArrayList<>();
+        try {
+            messageService.getMessages()
+                    .subscribeOn(Schedulers.computation())
+                    .subscribe((List<Map<String, Object>> newMessages) -> {
+                        for (Map<String, Object> message : newMessages) {
+                            messages.add(message);
+                        }
+                    });
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
+        }
 
         return json().render(messages);
+    }
+
+    public Result sendMessage() {
+        String topic = "test";
+        Map<String, Object> message = new HashMap<>();
+        message.put("from", "service-2");
+        try {
+            messageService.sendMessage(topic, message);
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "message sent");
+
+        return json().render(response);
     }
 
     public Result listMeals(@Param("tagId") Long id) {
