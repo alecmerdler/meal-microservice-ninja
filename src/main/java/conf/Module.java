@@ -23,6 +23,8 @@ import dao.MealDao;
 import dao.MealDaoImpl;
 import dao.TagDao;
 import dao.TagDaoImpl;
+import services.MessageService;
+import services.MessageServiceMQTT;
 import utils.UnirestObjectMapper;
 
 @Singleton
@@ -33,6 +35,7 @@ public class Module extends AbstractModule {
 
         bind(MealDao.class).to(MealDaoImpl.class);
         bind(TagDao.class).to(TagDaoImpl.class);
+        bind(MessageService.class).to(MessageServiceMQTT.class);
     }
 
 }

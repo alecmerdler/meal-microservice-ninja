@@ -28,7 +28,7 @@ import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
 import ninja.params.PathParam;
 import rx.schedulers.Schedulers;
-import services.MessageServiceMQTT;
+import services.MessageService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,14 +43,14 @@ public class ApplicationController {
 
     private final String serviceUrl = "http://localhost:8080";
     private final ObjectMapper objectMapper;
-    private final MessageServiceMQTT messageService;
+    private final MessageService messageService;
     private final MealDao mealDao;
     private final TagDao tagDao;
 
     @Inject
-    public ApplicationController(MealDao mealDao, TagDao tagDao) {
+    public ApplicationController(MealDao mealDao, TagDao tagDao, MessageService messageService) {
         this.objectMapper = new ObjectMapper();
-        this.messageService = new MessageServiceMQTT();
+        this.messageService = messageService;
         this.mealDao = mealDao;
         this.tagDao = tagDao;
     }

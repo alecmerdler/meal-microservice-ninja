@@ -3,7 +3,6 @@ package services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.inject.Inject;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import rx.Observable;
@@ -26,12 +25,6 @@ public class MessageServiceMQTT implements MessageService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final List<Map<String, Object>> messages = new ArrayList<>();
 
-    @Inject
-    public MessageServiceMQTT(IMqttClient client, MemoryPersistence persistence) {
-        this.client = client;
-        this.persistence = persistence;
-    }
-
     public MessageServiceMQTT() {
         this.persistence = new MemoryPersistence();
         final String topic = "test";
@@ -44,8 +37,6 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     public Observable<List<Map<String, Object>>> getMessages() throws Exception {
-        System.out.println(messages);
-
         return Observable.just(messages);
     }
 
