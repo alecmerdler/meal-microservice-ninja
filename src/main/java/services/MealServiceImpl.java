@@ -56,6 +56,16 @@ public class MealServiceImpl implements MealService {
     }
 
     public boolean destroyMeal(Meal meal) throws ServiceException {
-        return false;
+        if (meal == null) {
+            throw new ServiceException("Meal should not be null");
+        }
+        boolean status = false;
+        try {
+            status = mealDao.destroy(meal);
+        } catch (PersistenceException pe) {
+            throw new ServiceException(pe.getMessage());
+        }
+
+        return status;
     }
 }

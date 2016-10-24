@@ -3,13 +3,14 @@ package services;
 import dao.MealDao;
 import models.Meal;
 import models.Tag;
+import org.hibernate.service.spi.ServiceException;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -101,11 +102,25 @@ public class MealServiceImplTest {
 
     @Test
     public void testDestroyMealExists() {
+        Meal meal = new Meal("Banana", "Bob");
+        doReturn(true).when(mealDaoMock).destroy(meal);
+        mealService = new MealServiceImpl(mealDaoMock);
 
+        assertTrue(mealService.destroyMeal(meal));
+        verify(mealDaoMock).destroy(meal);
     }
 
     @Test
     public void testDestroyMealDoesNotExist() {
+        Meal meal = new Meal("Banana", "Bob");
+        doThrow(new ServiceException("")).when(mealDaoMock).destroy(meal);
+        mealService = new MealServiceImpl(mealDaoMock);
 
+        try {
+            mealService.destroyMeal(meal);
+            fail("Should throw exception");
+        } catch (Exception e) {
+            assertTrue(e instanceof ServiceException);
+        }
     }
 }

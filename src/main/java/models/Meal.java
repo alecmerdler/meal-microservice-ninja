@@ -13,27 +13,40 @@ public class Meal extends Model {
     @Column(nullable = false)
     private String mealName;
 
+    @Column(nullable = false)
+    private String chefName;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="meal_tag", joinColumns = @JoinColumn(name = "meal_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 
     public Meal() {
         this.mealName = "";
+        this.chefName = "";
         this.tags = new ArrayList<>();
     }
 
     public Meal(String mealName) {
         this.mealName = mealName;
+        this.chefName = "";
         this.tags = new ArrayList<>();
     }
 
-    public Meal(String mealName, List<Tag> tags) {
+    public Meal(String mealName, String chefName) {
         this.mealName = mealName;
+        this.chefName = chefName;
+        this.tags = new ArrayList<>();
+    }
+
+    public Meal(String mealName, String chefName, List<Tag> tags) {
+        this.mealName = mealName;
+        this.chefName = chefName;
         this.tags = tags;
     }
 
-    public Meal(String mealName, List<Tag> tags, Long id) {
+    public Meal(String mealName, String chefName, List<Tag> tags, Long id) {
         this.mealName = mealName;
+        this.chefName = chefName;
         this.tags = tags;
         this.id = id;
     }
@@ -44,6 +57,14 @@ public class Meal extends Model {
 
     public void setMealName(String mealName) {
         this.mealName = mealName;
+    }
+
+    public String getChefName() {
+        return this.chefName;
+    }
+
+    public void setChefName(String chefName) {
+        this.chefName = chefName;
     }
 
     public List<Tag> getTags() {
@@ -59,5 +80,4 @@ public class Meal extends Model {
 
         return this;
     }
-
 }
