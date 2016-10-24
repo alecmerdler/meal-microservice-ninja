@@ -6,11 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import rx.Observable;
+import rx.Subscriber;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by alec on 10/18/16.
@@ -30,7 +28,7 @@ public class MessageServiceMQTT implements MessageService {
         final String topic = "test";
         try {
             this.client = new MqttClient(brokerUrl, clientId, persistence);
-            subscribe(topic);
+            subscribeToTopic(topic);
         } catch (MqttException me) {
             me.printStackTrace();
         }
@@ -38,6 +36,10 @@ public class MessageServiceMQTT implements MessageService {
 
     public Observable<List<Map<String, Object>>> getMessages() throws Exception {
         return Observable.just(messages);
+    }
+
+    public Observable<Map<String, Object>> subscribe(String topic) {
+        return Observable.just(new HashMap<String, Object>());
     }
 
     public void sendMessage(String topic, Map<String, Object> message) throws Exception {
@@ -51,7 +53,7 @@ public class MessageServiceMQTT implements MessageService {
         }
     }
 
-    private void subscribe(String topic) {
+    private void subscribeToTopic(String topic) {
         try {
             if (!client.isConnected()) {
                 client.setCallback(new SubscribeCallback());
@@ -70,9 +72,15 @@ public class MessageServiceMQTT implements MessageService {
     private class SubscribeCallback implements MqttCallback {
 
         private ObjectMapper objectMapper;
+        private Subscriber subscriber;
 
         SubscribeCallback() {
             this.objectMapper = new ObjectMapper();
+        }
+
+        SubscribeCallback(Subscriber subscriber) {
+            this.objectMapper = new ObjectMapper();
+            this.subscriber = subscriber;
         }
 
         @Override

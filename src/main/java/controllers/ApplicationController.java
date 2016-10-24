@@ -28,6 +28,7 @@ import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
 import ninja.params.PathParam;
 import rx.schedulers.Schedulers;
+import services.MealService;
 import services.MessageService;
 
 import java.util.ArrayList;
@@ -44,15 +45,33 @@ public class ApplicationController {
     private final String serviceUrl = "http://localhost:8080";
     private final ObjectMapper objectMapper;
     private final MessageService messageService;
+    private final MealService mealService;
     private final MealDao mealDao;
     private final TagDao tagDao;
 
     @Inject
-    public ApplicationController(MealDao mealDao, TagDao tagDao, MessageService messageService) {
+    public ApplicationController(MealDao mealDao, TagDao tagDao, MessageService messageService, MealService mealService) {
         this.objectMapper = new ObjectMapper();
         this.messageService = messageService;
+        this.mealService = mealService;
         this.mealDao = mealDao;
         this.tagDao = tagDao;
+    }
+
+    public Result initialize(Context context, Map<String, Object> options) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "initialized");
+
+        messageService.subscribe("users")
+                .subscribeOn(Schedulers.io())
+                .subscribe((Map<String, Object> message) -> {
+                    if (message.containsKey("destroy")) {
+                        Long id = (Long) message.get("destroy");
+                    }
+                });
+
+
+        return json().render(response);
     }
 
     public Result listMessages() {

@@ -12,5 +12,7 @@ public interface MessageService {
 
     Observable<List<Map<String, Object>>> getMessages() throws Exception;
 
+    Observable<Map<String, Object>> subscribe(String topic);
+
     void sendMessage(String topic, Map<String, Object> message) throws Exception;
 }
