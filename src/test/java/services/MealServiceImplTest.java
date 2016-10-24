@@ -37,7 +37,7 @@ public class MealServiceImplTest {
     }
 
     @Test
-    public void testListAllSomeMeals() {
+    public void testListAllMealsSomeMeals() {
         List<Meal> meals = new ArrayList<>();
         meals.add(new Meal("Banana"));
         meals.add(new Meal("Steak"));
@@ -49,7 +49,7 @@ public class MealServiceImplTest {
     }
 
     @Test
-    public void testListAllByTagIdSomeMeals() {
+    public void testListMealsByTagIdSomeMeals() {
         Tag tag = new Tag("Fruit", null, new Long(32));
         doReturn(new ArrayList<>()).when(mealDaoMock).findByTagId(tag.getId());
         mealService = new MealServiceImpl(mealDaoMock);
@@ -59,7 +59,7 @@ public class MealServiceImplTest {
     }
 
     @Test
-    public void testListAllByTagIdSomeExist() {
+    public void testListMealsByTagIdSomeExist() {
         Tag tag = new Tag("Fruit", null, new Long(43));
         List<Meal> mealsWithTag = new ArrayList<>();
         mealsWithTag.add(new Meal("Banana"));
@@ -68,6 +68,31 @@ public class MealServiceImplTest {
         mealService = new MealServiceImpl(mealDaoMock);
 
         assertEquals(mealsWithTag.size(), mealService.listMealsByTagId(tag.getId()).size());
+        verify(mealDaoMock).findByTagId(tag.getId());
+    }
+
+    @Test
+    public void testListMealsByChefIdNoMeals() {
+        Long chefId = new Long(43);
+        doReturn(new ArrayList<>()).when(mealDaoMock).findByChefId(chefId);
+        mealService = new MealServiceImpl(mealDaoMock);
+
+        assertEquals(0, mealService.listMealsByChefId(chefId).size());
+        verify(mealDaoMock).findByChefId(chefId);
+    }
+
+    @Test
+    public void testListMealsByChefIdSomeMeals() {
+        Long chefId = new Long(73);
+        List<Meal> mealsWithChefId = new ArrayList<>();
+        mealsWithChefId.add(new Meal("Banana"));
+        mealsWithChefId.add(new Meal("Steak"));
+        mealsWithChefId.add(new Meal("Ice Cream"));
+        doReturn(mealsWithChefId).when(mealDaoMock).findByChefId(chefId);
+        mealService = new MealServiceImpl(mealDaoMock);
+
+        assertEquals(mealsWithChefId.size(), mealService.listMealsByChefId(chefId).size());
+        verify(mealDaoMock).findByChefId(chefId);
     }
 
     @Test
@@ -102,7 +127,7 @@ public class MealServiceImplTest {
 
     @Test
     public void testDestroyMealExists() {
-        Meal meal = new Meal("Banana", "Bob");
+        Meal meal = new Meal("Banana");
         doReturn(true).when(mealDaoMock).destroy(meal);
         mealService = new MealServiceImpl(mealDaoMock);
 
@@ -112,7 +137,7 @@ public class MealServiceImplTest {
 
     @Test
     public void testDestroyMealDoesNotExist() {
-        Meal meal = new Meal("Banana", "Bob");
+        Meal meal = new Meal("Banana");
         doThrow(new ServiceException("")).when(mealDaoMock).destroy(meal);
         mealService = new MealServiceImpl(mealDaoMock);
 

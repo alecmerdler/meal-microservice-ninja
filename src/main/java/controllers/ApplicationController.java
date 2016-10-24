@@ -62,11 +62,14 @@ public class ApplicationController {
         Map<String, Object> response = new HashMap<>();
         response.put("status", "initialized");
 
+        // TODO: Move to initialization service
         messageService.subscribe("users")
                 .subscribeOn(Schedulers.io())
                 .subscribe((Map<String, Object> message) -> {
-                    if (message.containsKey("destroy")) {
-                        Long id = (Long) message.get("destroy");
+                    if (message.containsKey("action") && message.get("action") == "destroy") {
+                        Long userId = (Long) message.get("userId");
+                        // TODO: List all meals by chefId
+                        // TODO: Destroy all meals by chefId
                     }
                 });
 

@@ -15,6 +15,8 @@ public interface MealService {
 
     List<Meal> listMealsByTagId(Long tagId) throws ServiceException;
 
+    List<Meal> listMealsByChefId(Long chefId) throws ServiceException;
+
     Optional<Meal> createMeal(Meal meal) throws ServiceException;
 
     Optional<Meal> retrieveMealById(Long id) throws ServiceException;

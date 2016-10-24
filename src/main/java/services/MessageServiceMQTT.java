@@ -39,6 +39,7 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     public Observable<Map<String, Object>> subscribe(String topic) {
+        // TODO: Subscribe to topic and call Rx Subscriber in callback
         return Observable.just(new HashMap<String, Object>());
     }
 

@@ -43,15 +43,29 @@ public class MealServiceImpl implements MealService {
         return mealsWithTag;
     }
 
+    public List<Meal> listMealsByChefId(Long chefId) throws ServiceException {
+        List<Meal> mealsWithChefId;
+        try {
+            mealsWithChefId = mealDao.findByChefId(chefId);
+        } catch (PersistenceException pe) {
+            throw new ServiceException(pe.getMessage());
+        }
+
+        return mealsWithChefId;
+    }
+
     public Optional<Meal> createMeal(Meal meal) throws ServiceException {
+        // TODO
         return null;
     }
 
     public Optional<Meal> retrieveMealById(Long id) throws ServiceException {
+        // TODO
         return null;
     }
 
     public Optional<Meal> updateMeal(Meal meal) throws ServiceException {
+        // TODO
         return null;
     }
 

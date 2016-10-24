@@ -35,4 +35,12 @@ public class MealDaoImpl extends BaseDao<Meal> implements MealDao {
                 .setParameter("tagId", tagId)
                 .getResultList();
     }
+
+    @Override
+    @UnitOfWork
+    public List<Meal> findByChefId(Long chefId) throws PersistenceException {
+        EntityManager entityManager = entityManagerProvider.get();
+
+        return super.findByProperty("chefId", chefId);
+    }
 }

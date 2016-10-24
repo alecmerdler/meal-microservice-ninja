@@ -13,6 +13,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by alec on 10/12/16.
@@ -55,7 +56,7 @@ public class MealDaoImplTest {
     @Test
     public void testFindByIdOneMeal() {
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal("Banana", "", null, new Long(1)));
+        meals.add(new Meal("Banana", null, null, new Long(1)));
         doReturn(queryMock).when(entityManagerMock).createQuery("select t from Meal as t where t.id = :value");
         doReturn(queryMock).when(queryMock).setParameter("value", meals.get(0).getId());
         doReturn(meals).when(queryMock).getResultList();
@@ -85,5 +86,42 @@ public class MealDaoImplTest {
         doReturn(meals).when(queryMock).getResultList();
 
         assertEquals(meals.size(), mealDao.findByTagId(tagId).size());
+    }
+
+    @Test
+    public void testFindByChefIdNoMeals() {
+        Long chefId = new Long(43);
+        doReturn(queryMock).when(entityManagerMock).createQuery("select t from Meal as t where t.chefId = :value");
+        doReturn(queryMock).when(queryMock).setParameter("value", chefId);
+        doReturn(new ArrayList<>()).when(queryMock).getResultList();
+
+        assertEquals(0, mealDao.findByChefId(chefId).size());
+    }
+
+    @Test
+    public void testFindByChefIdOneMeal() {
+        Long chefId = new Long(87);
+        List<Meal> mealsWithChefId = new ArrayList<>();
+        mealsWithChefId.add(new Meal("Banana"));
+        doReturn(queryMock).when(entityManagerMock).createQuery("select t from Meal as t where t.chefId = :value");
+        doReturn(queryMock).when(queryMock).setParameter("value", chefId);
+        doReturn(mealsWithChefId).when(queryMock).getResultList();
+
+        assertEquals(mealsWithChefId.size(), mealDao.findByChefId(chefId).size());
+        assertEquals(1, mealDao.findByChefId(chefId).size());
+    }
+
+    @Test
+    public void testFindByChefIdSomeMeals() {
+        Long chefId = new Long(42);
+        List<Meal> mealsWithChefId = new ArrayList<>();
+        mealsWithChefId.add(new Meal("Steak"));
+        mealsWithChefId.add(new Meal("Banana"));
+        doReturn(queryMock).when(entityManagerMock).createQuery("select t from Meal as t where t.chefId = :value");
+        doReturn(queryMock).when(queryMock).setParameter("value", chefId);
+        doReturn(mealsWithChefId).when(queryMock).getResultList();
+
+        assertEquals(mealsWithChefId.size(), mealDao.findByChefId(chefId).size());
+        assertEquals(mealsWithChefId.size(), mealDao.findByChefId(chefId).size());
     }
 }
