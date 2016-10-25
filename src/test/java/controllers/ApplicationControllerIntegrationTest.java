@@ -34,8 +34,10 @@ import utils.UnirestObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class ApplicationControllerIntegrationTest extends NinjaTest {
@@ -176,8 +178,10 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
         try {
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "/" + id)
                     .asJson();
+            Map<String, Object> responseBody = objectMapper.readValue(response.getBody().toString(), new TypeReference<Map>(){});
 
             assertEquals(404, response.getStatus());
+            assertTrue(responseBody.isEmpty());
         } catch (Exception e) {
             fail(e.getMessage());
         }
