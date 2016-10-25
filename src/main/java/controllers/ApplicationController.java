@@ -27,14 +27,13 @@ import ninja.Result;
 import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
 import ninja.params.PathParam;
+import org.hibernate.service.spi.ServiceException;
+import org.json.JSONObject;
 import rx.schedulers.Schedulers;
 import services.MealService;
 import services.MessageService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static ninja.Results.json;
 
@@ -64,24 +63,32 @@ public class ApplicationController {
 
         // TODO: Move to initialization service
         messageService.subscribe("users")
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .subscribe((Map<String, Object> message) -> {
                     if (message.containsKey("action") && message.get("action") == "destroy") {
                         Long userId = (Long) message.get("userId");
-                        // TODO: List all meals by chefId
-                        // TODO: Destroy all meals by chefId
+                        try {
+                            List<Meal> mealsWithChefId = mealService.listMealsByChefId(userId);
+                            for (Meal meal : mealsWithChefId) {
+                                mealService.destroyMeal(meal);
+                            }
+                        } catch (ServiceException se) {
+                            throw new BadRequestException(se.getMessage());
+                        }
                     }
                 });
 
 
-        return json().render(response);
+        return json()
+                .status(200)
+                .render(response);
     }
 
     public Result listMessages() {
         final List<Map<String, Object>> messages = new ArrayList<>();
         try {
             messageService.getMessages()
-                    .subscribeOn(Schedulers.computation())
+                    .subscribeOn(Schedulers.newThread())
                     .subscribe((List<Map<String, Object>> newMessages) -> {
                         for (Map<String, Object> message : newMessages) {
                             messages.add(message);
@@ -91,22 +98,9 @@ public class ApplicationController {
             throw new BadRequestException(e.getMessage());
         }
 
-        return json().render(messages);
-    }
-
-    public Result sendMessage() {
-        String topic = "test";
-        Map<String, Object> message = new HashMap<>();
-        message.put("from", "service-2");
-        try {
-            messageService.sendMessage(topic, message);
-        } catch (Exception e) {
-            throw new BadRequestException(e.getMessage());
-        }
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", "message sent");
-
-        return json().render(response);
+        return json()
+                .status(200)
+                .render(messages);
     }
 
     public Result listMeals(@Param("tagId") Long id) {
@@ -122,15 +116,43 @@ public class ApplicationController {
             throw new BadRequestException(e.getMessage());
         }
 
-        return json().render(allMeals);
+        return json()
+                .status(200)
+                .render(allMeals);
     }
 
-    public Result createMeal() {
-        throw new BadRequestException("Route not implemented");
+    public Result createMeal(Context context, Meal meal) {
+        Meal createdMeal = null;
+        try {
+            Optional<Meal> mealOptional = mealService.createMeal(meal);
+            if (mealOptional.isPresent()) {
+                createdMeal = mealOptional.get();
+            }
+        } catch (ServiceException se) {
+            throw new BadRequestException(se.getMessage());
+        }
+
+        return json()
+                .status(201)
+                .render(createdMeal);
     }
 
     public Result retrieveMeal(@PathParam("id") Long id) {
-        throw new BadRequestException("Route not implemented");
+        Result response = json()
+                .status(404)
+                .render(new JSONObject());
+        try {
+            Optional<Meal> mealOptional = mealService.retrieveMealById(id);
+            if (mealOptional.isPresent()) {
+                response = json()
+                        .status(200)
+                        .render(mealOptional.get());
+            }
+        } catch (ServiceException se) {
+            throw new BadRequestException(se.getMessage());
+        }
+
+        return response;
     }
 
     public Result updateMeal(@PathParam("id") Long id, Context context, Meal updatedMeal) {

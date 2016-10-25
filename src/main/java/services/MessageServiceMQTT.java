@@ -25,10 +25,8 @@ public class MessageServiceMQTT implements MessageService {
 
     public MessageServiceMQTT() {
         this.persistence = new MemoryPersistence();
-        final String topic = "test";
         try {
             this.client = new MqttClient(brokerUrl, clientId, persistence);
-            subscribeToTopic(topic);
         } catch (MqttException me) {
             me.printStackTrace();
         }
@@ -39,8 +37,15 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     public Observable<Map<String, Object>> subscribe(String topic) {
-        // TODO: Subscribe to topic and call Rx Subscriber in callback
-        return Observable.just(new HashMap<String, Object>());
+        return Observable.create((subscriber) -> {
+            try {
+                client.setCallback(new SubscribeCallback(subscriber));
+                client.connect();
+                client.subscribe(topic);
+            } catch (MqttException me) {
+                me.printStackTrace();
+            }
+        });
     }
 
     public void sendMessage(String topic, Map<String, Object> message) throws Exception {
@@ -54,30 +59,14 @@ public class MessageServiceMQTT implements MessageService {
         }
     }
 
-    private void subscribeToTopic(String topic) {
-        try {
-            if (!client.isConnected()) {
-                client.setCallback(new SubscribeCallback());
-                client.connect();
-            }
-            client.subscribe(topic);
-        } catch (MqttException me) {
-            me.printStackTrace();
-        }
-    }
-
     private String formatMessage(Map<String, Object> message) throws JsonProcessingException {
         return objectMapper.writeValueAsString(message);
     }
 
     private class SubscribeCallback implements MqttCallback {
 
-        private ObjectMapper objectMapper;
-        private Subscriber subscriber;
-
-        SubscribeCallback() {
-            this.objectMapper = new ObjectMapper();
-        }
+        private final ObjectMapper objectMapper;
+        private final Subscriber subscriber;
 
         SubscribeCallback(Subscriber subscriber) {
             this.objectMapper = new ObjectMapper();
@@ -94,6 +83,7 @@ public class MessageServiceMQTT implements MessageService {
             try {
                 Map<String, Object> messageMap = objectMapper.readValue(message.getPayload(), new TypeReference<Map<String, Object>>(){});
                 messages.add(messageMap);
+                subscriber.onNext(messageMap);
                 System.out.println(messages);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -105,6 +95,4 @@ public class MessageServiceMQTT implements MessageService {
 
         }
     }
-
-
 }

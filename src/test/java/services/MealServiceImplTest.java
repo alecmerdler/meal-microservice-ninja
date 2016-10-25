@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -97,22 +98,50 @@ public class MealServiceImplTest {
 
     @Test
     public void testCreateMealValid() {
+        Meal meal = new Meal("Banana");
+        doReturn(meal).when(mealDaoMock).create(meal);
+        mealService = new MealServiceImpl(mealDaoMock);
+        Optional<Meal> mealOptional = mealService.createMeal(meal);
 
+        assertTrue(mealOptional.isPresent());
+        assertEquals(meal, mealOptional.get());
+        verify(mealDaoMock).create(meal);
     }
 
     @Test
     public void testCreateMealInvalid() {
-
+        mealService = new MealServiceImpl(mealDaoMock);
+        try {
+            mealService.createMeal(null);
+            fail("Should throw exception");
+        } catch (Exception e) {
+            assertTrue(e instanceof ServiceException);
+        }
     }
 
     @Test
     public void testRetrieveMealByIdExists() {
+        List<Meal> mealsWithId = new ArrayList<>();
+        Meal meal = new Meal("Banana", new Long(43), null, new Long(2));
+        mealsWithId.add(meal);
+        doReturn(mealsWithId).when(mealDaoMock).findById(meal.getId());
+        mealService = new MealServiceImpl(mealDaoMock);
+        Optional<Meal> mealOptional = mealService.retrieveMealById(meal.getId());
 
+        assertTrue(mealOptional.isPresent());
+        assertEquals(meal, mealOptional.get());
+        verify(mealDaoMock).findById(meal.getId());
     }
 
     @Test
     public void testRetrieveMealByIdDoesNotExist() {
+        Long id = new Long(54);
+        doReturn(new ArrayList<>()).when(mealDaoMock).findById(id);
+        mealService = new MealServiceImpl(mealDaoMock);
+        Optional<Meal> mealOptional = mealService.retrieveMealById(id);
 
+        assertFalse(mealOptional.isPresent());
+        verify(mealDaoMock).findById(id);
     }
 
     @Test

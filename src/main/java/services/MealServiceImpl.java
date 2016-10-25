@@ -9,6 +9,8 @@ import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * Created by alec on 10/11/16.
  */
@@ -55,13 +57,34 @@ public class MealServiceImpl implements MealService {
     }
 
     public Optional<Meal> createMeal(Meal meal) throws ServiceException {
-        // TODO
-        return null;
+        final Meal createdMeal;
+        if (meal == null) {
+            throw new ServiceException("Meal should not be null");
+        }
+        try {
+            createdMeal = mealDao.create(meal);
+        } catch (PersistenceException pe) {
+            throw new ServiceException(pe.getMessage());
+        }
+
+        return ofNullable(createdMeal);
     }
 
     public Optional<Meal> retrieveMealById(Long id) throws ServiceException {
-        // TODO
-        return null;
+        if (id == null) {
+            throw new ServiceException("ID should not be null");
+        }
+        Meal meal = null;
+        try {
+            List<Meal> mealsWithId = mealDao.findById(id);
+            if (mealsWithId.size() > 0) {
+                meal = mealsWithId.get(0);
+            }
+        } catch (PersistenceException pe) {
+            throw new PersistenceException(pe.getMessage());
+        }
+
+        return ofNullable(meal);
     }
 
     public Optional<Meal> updateMeal(Meal meal) throws ServiceException {

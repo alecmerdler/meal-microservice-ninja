@@ -35,7 +35,6 @@ public class Routes implements ApplicationRoutes {
         router.POST().route("/initialize").with(ApplicationController.class, "initialize");
 
         router.GET().route("/messages").with(ApplicationController.class, "listMessages");
-        router.POST().route("/messages").with(ApplicationController.class, "sendMessage");
 
         router.GET().route(mealsUrl).with(ApplicationController.class, "listMeals");
         router.POST().route(mealsUrl).with(ApplicationController.class, "createMeal");

@@ -110,7 +110,6 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
         Tag fruitTag = new Tag("Fruit");
         Meal createdFirstMeal = mealDao.create(new Meal("Banana").addTag(fruitTag));
         mealDao.create(new Meal("Steak"));
-
         try {
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + createdFirstMeal.getTags().get(0).getId())
                     .asJson();
@@ -129,7 +128,6 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
     public void testListMealsByTagNoneExist() {
         Tag tag = tagDao.create(new Tag("Meat"));
         mealDao.create(new Meal("Banana"));
-
         try {
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?tagId=" + tag.getId())
                     .asJson();
@@ -140,5 +138,53 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void testCreateMealValid() {
+        Meal meal = new Meal("Banana", new Long(1), new ArrayList<>());
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl)
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(meal)
+                    .asJson();
+            Meal createdMeal = objectMapper.readValue(response.getBody().toString(), Meal.class);
+
+            assertEquals(201, response.getStatus());
+            assertEquals(meal.getMealName(), createdMeal.getMealName());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateMealInvalid() {
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl)
+                    .asJson();
+
+            assertEquals(400, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testRetrieveMealDoesNotExist() {
+        int id = 32;
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "/" + id)
+                    .asJson();
+
+            assertEquals(404, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testRetrieveMealExists() {
+
     }
 }
