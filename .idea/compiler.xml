@@ -22,11 +22,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="meal-microservice-ninja" />
         <module name="ninja-service" />
         <module name="ninja-service-2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="meal-microservice-ninja" target="1.8" />
       <module name="ninja-service" target="1.8" />
       <module name="ninja-service-2" target="1.8" />
     </bytecodeTargetLevel>

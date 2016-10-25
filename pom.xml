@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ninja-service-2</artifactId>
+    <artifactId>meal-microservice-ninja</artifactId>
     <packaging>jar</packaging>
     <groupId>com.alec</groupId>
     <version>1.0-SNAPSHOT</version>
