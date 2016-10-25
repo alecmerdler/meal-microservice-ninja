@@ -72,6 +72,5 @@ public class MealIntegrationTest extends NinjaTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-
     }
 }

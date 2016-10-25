@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/meal-microservice-ninja.iml" filepath="$PROJECT_DIR$/meal-microservice-ninja.iml" />
       <module fileurl="file://$PROJECT_DIR$/ninja-service.iml" filepath="$PROJECT_DIR$/ninja-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ninja-service-2.iml" filepath="$PROJECT_DIR$/ninja-service-2.iml" />
     </modules>
   </component>
 </project>
