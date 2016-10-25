@@ -40,9 +40,9 @@ public class BaseDao<T extends Model> implements Dao<T> {
     @UnitOfWork
     public List<T> findByProperty(String property, Object value) throws PersistenceException {
         EntityManager entityManager = entityManagerProvider.get();
-
         Query query = entityManager.createQuery("select t from " + modelName + " as t where t." + property + " = :value")
                 .setParameter("value", value);
+
         return query.getResultList();
     }
 

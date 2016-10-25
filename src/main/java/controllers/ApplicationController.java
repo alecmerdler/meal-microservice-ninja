@@ -28,7 +28,6 @@ import ninja.exceptions.BadRequestException;
 import ninja.params.Param;
 import ninja.params.PathParam;
 import org.hibernate.service.spi.ServiceException;
-import org.json.JSONObject;
 import rx.schedulers.Schedulers;
 import services.MealService;
 import services.MessageService;
@@ -58,17 +57,14 @@ public class ApplicationController {
     }
 
     public Result initialize(Context context, Map<String, Object> options) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", "initialized");
-
         // TODO: Move to initialization service
         messageService.subscribe("users")
                 .subscribeOn(Schedulers.newThread())
                 .subscribe((Map<String, Object> message) -> {
-                    if (message.containsKey("action") && message.get("action") == "destroy") {
-                        Long userId = (Long) message.get("userId");
+                    if (message.containsKey("action") && message.get("action").equals("destroy")) {
+                        Number userId = (Number) message.get("userId");
                         try {
-                            List<Meal> mealsWithChefId = mealService.listMealsByChefId(userId);
+                            List<Meal> mealsWithChefId = mealService.listMealsByChefId(userId.longValue());
                             for (Meal meal : mealsWithChefId) {
                                 mealService.destroyMeal(meal);
                             }
@@ -78,6 +74,8 @@ public class ApplicationController {
                     }
                 });
 
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "initialized");
 
         return json()
                 .status(200)
@@ -140,7 +138,7 @@ public class ApplicationController {
     public Result retrieveMeal(@PathParam("id") Long id) {
         Result response = json()
                 .status(404)
-                .render(new JSONObject());
+                .render(new HashMap<>());
         try {
             Optional<Meal> mealOptional = mealService.retrieveMealById(id);
             if (mealOptional.isPresent()) {
@@ -160,6 +158,21 @@ public class ApplicationController {
     }
 
     public Result destroyMeal(@PathParam("id") Long id) {
-        throw new BadRequestException("Route not implemented");
+        Result response = json()
+                .status(404)
+                .render(new HashMap<>());
+        try {
+            Optional<Meal> mealOptional = mealService.retrieveMealById(id);
+            if (mealOptional.isPresent()) {
+                boolean status = mealService.destroyMeal(mealOptional.get());
+                response = json()
+                        .status(204)
+                        .render(new HashMap<>());
+            }
+        } catch (ServiceException se) {
+            throw new BadRequestException(se.getMessage());
+        }
+
+        return response;
     }
 }
