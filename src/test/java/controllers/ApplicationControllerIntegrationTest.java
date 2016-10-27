@@ -89,6 +89,19 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
     }
 
     @Test
+    public void testInitialize() {
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(getServerAddress() + "/initialize")
+                    .asJson();
+
+            assertEquals(200, response.getStatus());
+            assertEquals("initialized", response.getBody().getObject().get("status"));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void testListMealsSomeExist() {
         List<Meal> newMeals = new ArrayList<>();
         for (int i = 0; i < 4; i++) {

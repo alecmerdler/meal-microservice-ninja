@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.hibernate.service.spi.ServiceException;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -22,32 +23,37 @@ public class MessageServiceMQTT implements MessageService {
     private final MemoryPersistence persistence;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final List<Map<String, Object>> messages = new ArrayList<>();
+    private Map<String, List<Subscriber>> subscribers = new HashMap<>();
 
     public MessageServiceMQTT() {
         this.persistence = new MemoryPersistence();
         try {
             this.client = new MqttClient(brokerUrl, clientId, persistence);
+            this.client.setCallback(new SubscribeCallback());
+            this.client.connect();
         } catch (MqttException me) {
             me.printStackTrace();
         }
     }
 
+    @Override
     public Observable<List<Map<String, Object>>> getMessages() throws Exception {
         return Observable.just(messages);
     }
 
+    @Override
     public Observable<Map<String, Object>> subscribe(String topic) {
         return Observable.create((subscriber) -> {
             try {
-                client.setCallback(new SubscribeCallback(subscriber));
-                client.connect();
                 client.subscribe(topic);
+                addSubscriberToTopic(topic, subscriber);
             } catch (MqttException me) {
                 me.printStackTrace();
             }
         });
     }
 
+    @Override
     public void sendMessage(String topic, Map<String, Object> message) throws Exception {
         try {
             if (!client.isConnected()) {
@@ -59,18 +65,36 @@ public class MessageServiceMQTT implements MessageService {
         }
     }
 
+    @Override
+    public void shutdown() throws ServiceException {
+        try {
+            client.close();
+        } catch (MqttException me) {
+            throw new ServiceException(me.getMessage());
+        }
+    }
+
     private String formatMessage(Map<String, Object> message) throws JsonProcessingException {
         return objectMapper.writeValueAsString(message);
+    }
+
+    private void addSubscriberToTopic(String topic, Subscriber subscriber) {
+        if (subscribers.containsKey(topic)) {
+            subscribers.get(topic).add(subscriber);
+        }
+        else {
+            List<Subscriber> newSubscriberList = new ArrayList<>();
+            newSubscriberList.add(subscriber);
+            subscribers.put(topic, newSubscriberList);
+        }
     }
 
     private class SubscribeCallback implements MqttCallback {
 
         private final ObjectMapper objectMapper;
-        private final Subscriber subscriber;
 
-        SubscribeCallback(Subscriber subscriber) {
+        SubscribeCallback() {
             this.objectMapper = new ObjectMapper();
-            this.subscriber = subscriber;
         }
 
         @Override
@@ -83,7 +107,9 @@ public class MessageServiceMQTT implements MessageService {
             try {
                 Map<String, Object> messageMap = objectMapper.readValue(message.getPayload(), new TypeReference<Map<String, Object>>(){});
                 messages.add(messageMap);
-                subscriber.onNext(messageMap);
+                for (Subscriber subscriber : subscribers.get(topic)) {
+                    subscriber.onNext(messageMap);
+                }
                 System.out.println(messages);
             } catch (Exception e) {
                 e.printStackTrace();

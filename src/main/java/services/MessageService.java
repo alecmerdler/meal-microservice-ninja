@@ -1,5 +1,6 @@
 package services;
 
+import org.hibernate.service.spi.ServiceException;
 import rx.Observable;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface MessageService {
     Observable<Map<String, Object>> subscribe(String topic);
 
     void sendMessage(String topic, Map<String, Object> message) throws Exception;
+
+    void shutdown() throws ServiceException;
 }

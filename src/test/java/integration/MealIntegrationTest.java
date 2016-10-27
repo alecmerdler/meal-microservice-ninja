@@ -10,6 +10,7 @@ import models.Meal;
 import ninja.NinjaTest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import services.MessageService;
@@ -47,6 +48,13 @@ public class MealIntegrationTest extends NinjaTest {
         tagsUrl = apiUrl + "/tags";
 
         Unirest.setObjectMapper(new UnirestObjectMapper());
+    }
+
+    @After
+    public void afterEach() {
+        Injector injector = getInjector();
+        messageService = injector.getInstance(MessageService.class);
+        messageService.shutdown();
     }
 
     @Test
