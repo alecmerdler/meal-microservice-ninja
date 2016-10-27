@@ -30,7 +30,7 @@ public class Routes implements ApplicationRoutes {
 
     @Override
     public void init(Router router) {
-        router.GET().route("/").with(Results.json().render("name", "service-2"));
+        router.GET().route("/").with(Results.json().render("name", "meal-microservice-ninja"));
         router.GET().route("/healthcheck").with(Results.json().render("status", "running"));
         router.POST().route("/initialize").with(ApplicationController.class, "initialize");
 
