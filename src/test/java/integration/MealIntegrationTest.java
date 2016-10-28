@@ -54,7 +54,7 @@ public class MealIntegrationTest extends NinjaTest {
     public void afterEach() {
         Injector injector = getInjector();
         messageService = injector.getInstance(MessageService.class);
-        messageService.shutdown();
+        messageService.stop();
     }
 
     @Test

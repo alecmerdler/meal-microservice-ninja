@@ -66,7 +66,7 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     @Override
-    public void shutdown() throws ServiceException {
+    public void stop() throws ServiceException {
         try {
             client.close();
         } catch (MqttException me) {
