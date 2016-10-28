@@ -28,17 +28,17 @@ import models.Tag;
 import ninja.NinjaTest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import services.MessageService;
 import utils.UnirestObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ApplicationControllerIntegrationTest extends NinjaTest {
 
@@ -62,6 +62,12 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
         Unirest.setObjectMapper(new UnirestObjectMapper());
     }
 
+    @After
+    public void afterEach() {
+        Injector injector = getInjector();
+        injector.getInstance(MessageService.class).stop();
+    }
+
     @Test
     public void testRoot() {
         try {
@@ -69,7 +75,7 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
                     .asJson();
 
             assertEquals(200, response.getStatus());
-            assertEquals("service-2", response.getBody().getObject().get("name"));
+            assertEquals("meal-microservice-ninja", response.getBody().getObject().get("name"));
         } catch (Exception e) {
             fail(e.getMessage());
         }

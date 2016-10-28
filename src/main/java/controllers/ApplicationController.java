@@ -58,7 +58,7 @@ public class ApplicationController {
 
     public Result initialize(Context context, Map<String, Object> options) {
         // TODO: Move to initialization service
-        messageService.subscribe("users")
+        messageService.subscribe("users/+")
                 .subscribeOn(Schedulers.newThread())
                 .subscribe((Map<String, Object> message) -> {
                     if (message.containsKey("action") && message.get("action").equals("destroy")) {

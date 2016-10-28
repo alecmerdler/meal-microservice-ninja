@@ -3,6 +3,7 @@ package services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import models.Message;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.hibernate.service.spi.ServiceException;
@@ -54,11 +55,12 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     @Override
-    public void sendMessage(String topic, Map<String, Object> message) throws Exception {
+    public void sendMessage(String topic, String action, Map<String, Object> state, Map<String, Object> changes) throws Exception {
         try {
             if (!client.isConnected()) {
                 client.connect();
             }
+            Message message = new Message(topic, action, state, changes);
             client.publish(topic, new MqttMessage(formatMessage(message).getBytes()));
         } catch (MqttException me) {
             me.printStackTrace();
@@ -68,13 +70,14 @@ public class MessageServiceMQTT implements MessageService {
     @Override
     public void stop() throws ServiceException {
         try {
+            client.disconnect();
             client.close();
         } catch (MqttException me) {
             throw new ServiceException(me.getMessage());
         }
     }
 
-    private String formatMessage(Map<String, Object> message) throws JsonProcessingException {
+    private String formatMessage(Message message) throws JsonProcessingException {
         return objectMapper.writeValueAsString(message);
     }
 
