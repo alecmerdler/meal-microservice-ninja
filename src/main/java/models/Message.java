@@ -2,6 +2,7 @@ package models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +18,14 @@ public class Message {
 
     public Message() {
 
+    }
+
+    public Message(String resourceName, Long resourceId, String action) {
+        this.resourceName = resourceName;
+        this.resourceId = resourceId;
+        this.action = action;
+        this.state = new HashMap<>();
+        this.changes = new HashMap<>();
     }
 
     public Message(String resourceName, Long resourceId, String action, Map<String, Object> state,

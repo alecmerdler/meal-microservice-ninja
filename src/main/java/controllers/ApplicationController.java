@@ -121,9 +121,10 @@ public class ApplicationController {
             Optional<Meal> mealOptional = mealService.createMeal(meal);
             if (mealOptional.isPresent()) {
                 createdMeal = mealOptional.get();
+                messageService.publish(new Message("meals", createdMeal.getId(), "create"));
             }
-        } catch (ServiceException se) {
-            throw new BadRequestException(se.getMessage());
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
         }
 
         return json()

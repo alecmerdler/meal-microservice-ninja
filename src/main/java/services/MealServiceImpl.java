@@ -88,8 +88,17 @@ public class MealServiceImpl implements MealService {
     }
 
     public Optional<Meal> updateMeal(Meal meal) throws ServiceException {
-        // TODO
-        return null;
+        final Meal updatedMeal;
+        if (meal == null) {
+            throw new ServiceException("Meal shoud not be null");
+        }
+        try {
+            updatedMeal = mealDao.update(meal);
+        } catch (PersistenceException pe) {
+            throw new ServiceException(pe.getMessage());
+        }
+
+        return ofNullable(updatedMeal);
     }
 
     public boolean destroyMeal(Meal meal) throws ServiceException {

@@ -7,6 +7,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.*;
  * Created by alec on 10/12/16.
  */
 public class MealServiceImplTest {
+
     MealServiceImpl mealService;
 
     // Mocks
@@ -145,13 +147,39 @@ public class MealServiceImplTest {
     }
 
     @Test
-    public void testUpdateMealValid() {
-
+    public void testUpdateMealInvalid() {
+        mealService = new MealServiceImpl(mealDaoMock);
+        try {
+            mealService.updateMeal(null);
+            fail("Should throw exception");
+        } catch (Exception e) {
+            assertTrue(e instanceof ServiceException);
+        }
     }
 
     @Test
-    public void testUpdateMealInvalid() {
+    public void testUpdateMealExists() {
+        Meal meal = new Meal("Steak", new Long(43));
+        doReturn(meal).when(mealDaoMock).update(meal);
+        mealService = new MealServiceImpl(mealDaoMock);
 
+        assertTrue(mealService.updateMeal(meal).isPresent());
+        verify(mealDaoMock).update(meal);
+    }
+
+    @Test
+    public void testUpdateMealDoesNotExist() {
+        Meal meal = new Meal("Steak", new Long(43));
+        doThrow(new PersistenceException("Meal with the given ID does not exist")).when(mealDaoMock).update(meal);
+        mealService = new MealServiceImpl(mealDaoMock);
+
+        try {
+            Optional<Meal> mealOptional = mealService.updateMeal(meal);
+            fail("Should throw exception");
+        } catch (Exception e) {
+            assertTrue(e instanceof ServiceException);
+            verify(mealDaoMock).update(meal);
+        }
     }
 
     @Test
