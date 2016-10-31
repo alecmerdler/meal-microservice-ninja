@@ -7,8 +7,8 @@ import com.mashape.unirest.http.Unirest;
 import dao.MealDao;
 import dao.TagDao;
 import models.Meal;
+import models.Message;
 import ninja.NinjaTest;
-import org.apache.commons.collections.map.HashedMap;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.junit.After;
@@ -67,7 +67,7 @@ public class MealIntegrationTest extends NinjaTest {
         mealDao.create(new Meal("Ice Cream", new Long(76)));
         try {
             Unirest.post(getServerAddress() + "/initialize").asJson();
-            messageService.sendMessage("users", "destroy", new HashedMap(), new HashMap<>());
+            messageService.sendMessage(new Message("users", chefId, "destroy", new HashMap<>(), new HashMap<>()));
             Thread.sleep(1000);
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl)
                     .asJson();

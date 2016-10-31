@@ -1,7 +1,5 @@
 package services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Message;
 import org.eclipse.paho.client.mqttv3.*;
@@ -23,7 +21,7 @@ public class MessageServiceMQTT implements MessageService {
     private IMqttClient client;
     private final MemoryPersistence persistence;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final List<Map<String, Object>> messages = new ArrayList<>();
+    private final List<Message> messages = new ArrayList<>();
     private Map<String, List<Subscriber>> subscribers = new HashMap<>();
 
     public MessageServiceMQTT() {
@@ -38,15 +36,19 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     @Override
-    public Observable<List<Map<String, Object>>> getMessages() throws Exception {
+    public Observable<List<Message>> getMessages() throws Exception {
         return Observable.just(messages);
     }
 
     @Override
-    public Observable<Map<String, Object>> subscribe(String topic) {
+    public Observable<Message> subscribe(String topic, boolean subscribeToAll) {
         return Observable.create((subscriber) -> {
+            String wildcard = "";
+            if (subscribeToAll) {
+                wildcard = "+";
+            }
             try {
-                client.subscribe(topic);
+                client.subscribe(topic + "/" + wildcard);
                 addSubscriberToTopic(topic, subscriber);
             } catch (MqttException me) {
                 me.printStackTrace();
@@ -55,13 +57,12 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     @Override
-    public void sendMessage(String topic, String action, Map<String, Object> state, Map<String, Object> changes) throws Exception {
+    public void sendMessage(Message message) throws Exception {
         try {
             if (!client.isConnected()) {
                 client.connect();
             }
-            Message message = new Message(topic, action, state, changes);
-            client.publish(topic, new MqttMessage(formatMessage(message).getBytes()));
+            client.publish(message.getTopic(), new MqttMessage(objectMapper.writeValueAsString(message).getBytes()));
         } catch (MqttException me) {
             me.printStackTrace();
         }
@@ -75,10 +76,6 @@ public class MessageServiceMQTT implements MessageService {
         } catch (MqttException me) {
             throw new ServiceException(me.getMessage());
         }
-    }
-
-    private String formatMessage(Message message) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(message);
     }
 
     private void addSubscriberToTopic(String topic, Subscriber subscriber) {
@@ -106,12 +103,12 @@ public class MessageServiceMQTT implements MessageService {
         }
 
         @Override
-        public void messageArrived(String topic, MqttMessage message) {
+        public void messageArrived(String topic, MqttMessage mqttMessage) {
             try {
-                Map<String, Object> messageMap = objectMapper.readValue(message.getPayload(), new TypeReference<Map<String, Object>>(){});
-                messages.add(messageMap);
-                for (Subscriber subscriber : subscribers.get(topic)) {
-                    subscriber.onNext(messageMap);
+                Message message = objectMapper.readValue(mqttMessage.getPayload(), Message.class);
+                messages.add(message);
+                for (Subscriber subscriber : subscribers.get(message.getResourceName())) {
+                    subscriber.onNext(message);
                 }
                 System.out.println(messages);
             } catch (Exception e) {

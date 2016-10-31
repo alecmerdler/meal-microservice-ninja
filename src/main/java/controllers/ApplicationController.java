@@ -22,6 +22,7 @@ import com.google.inject.Singleton;
 import dao.MealDao;
 import dao.TagDao;
 import models.Meal;
+import models.Message;
 import ninja.Context;
 import ninja.Result;
 import ninja.exceptions.BadRequestException;
@@ -58,18 +59,17 @@ public class ApplicationController {
 
     public Result initialize(Context context, Map<String, Object> options) {
         // TODO: Move to initialization service
-        messageService.subscribe("users/+")
+        messageService.subscribe("users", true)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe((Map<String, Object> message) -> {
-                    if (message.containsKey("action") && message.get("action").equals("destroy")) {
-                        Number userId = (Number) message.get("userId");
+                .subscribe((Message message) -> {
+                    if (message.getAction().equals("destroy")) {
                         try {
-                            List<Meal> mealsWithChefId = mealService.listMealsByChefId(userId.longValue());
+                            List<Meal> mealsWithChefId = mealService.listMealsByChefId(message.getResourceId());
                             for (Meal meal : mealsWithChefId) {
                                 mealService.destroyMeal(meal);
                             }
                         } catch (ServiceException se) {
-                            throw new BadRequestException(se.getMessage());
+                            System.out.println(se.getMessage());
                         }
                     }
                 });
@@ -83,15 +83,11 @@ public class ApplicationController {
     }
 
     public Result listMessages() {
-        final List<Map<String, Object>> messages = new ArrayList<>();
+        final List<Message> messages = new ArrayList<>();
         try {
             messageService.getMessages()
                     .subscribeOn(Schedulers.newThread())
-                    .subscribe((List<Map<String, Object>> newMessages) -> {
-                        for (Map<String, Object> message : newMessages) {
-                            messages.add(message);
-                        }
-                    });
+                    .subscribe(messages::addAll);
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage());
         }

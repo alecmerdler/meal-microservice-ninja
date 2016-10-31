@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Map;
 
 /**
@@ -7,24 +9,52 @@ import java.util.Map;
  */
 public class Message {
 
-    private String topic;
+    private String resourceName;
+    private Long resourceId;
     private String action;
     private Map<String, Object> state;
     private Map<String, Object> changes;
 
-    public Message(String topic, String action, Map<String, Object> state, Map<String, Object> changes) {
-        this.topic = topic;
+    public Message() {
+
+    }
+
+    public Message(String action, Map<String, Object> state, Map<String, Object> changes) {
+        this.resourceName = null;
+        this.resourceId = null;
         this.action = action;
         this.state = state;
         this.changes = changes;
     }
 
-    public String getTopic() {
-        return topic;
+    public Message(String resourceName, Long resourceId, String action, Map<String, Object> state,
+                   Map<String, Object> changes) {
+        this.resourceName = resourceName;
+        this.resourceId = resourceId;
+        this.action = action;
+        this.state = state;
+        this.changes = changes;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    @JsonIgnore
+    public String getTopic() {
+        return resourceName + "/" + resourceId;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    public Long getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getAction() {
