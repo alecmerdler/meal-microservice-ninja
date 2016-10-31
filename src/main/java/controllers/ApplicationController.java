@@ -161,12 +161,13 @@ public class ApplicationController {
             Optional<Meal> mealOptional = mealService.retrieveMealById(id);
             if (mealOptional.isPresent()) {
                 boolean status = mealService.destroyMeal(mealOptional.get());
+                messageService.publish(new Message("meals", id, "destroy", new HashMap<>(), new HashMap<>()));
                 response = json()
                         .status(204)
                         .render(new HashMap<>());
             }
-        } catch (ServiceException se) {
-            throw new BadRequestException(se.getMessage());
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
         }
 
         return response;

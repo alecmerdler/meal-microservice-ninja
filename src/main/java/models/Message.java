@@ -19,14 +19,6 @@ public class Message {
 
     }
 
-    public Message(String action, Map<String, Object> state, Map<String, Object> changes) {
-        this.resourceName = null;
-        this.resourceId = null;
-        this.action = action;
-        this.state = state;
-        this.changes = changes;
-    }
-
     public Message(String resourceName, Long resourceId, String action, Map<String, Object> state,
                    Map<String, Object> changes) {
         this.resourceName = resourceName;

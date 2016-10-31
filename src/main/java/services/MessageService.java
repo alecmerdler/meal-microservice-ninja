@@ -15,7 +15,7 @@ public interface MessageService {
 
     Observable<Message> subscribe(String topic, boolean subscribeToAll);
 
-    void sendMessage(Message message) throws Exception;
+    void publish(Message message) throws Exception;
 
     void stop() throws ServiceException;
 }

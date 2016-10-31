@@ -67,7 +67,7 @@ public class MealIntegrationTest extends NinjaTest {
         mealDao.create(new Meal("Ice Cream", new Long(76)));
         try {
             Unirest.post(getServerAddress() + "/initialize").asJson();
-            messageService.sendMessage(new Message("users", chefId, "destroy", new HashMap<>(), new HashMap<>()));
+            messageService.publish(new Message("users", chefId, "destroy", new HashMap<>(), new HashMap<>()));
             Thread.sleep(1000);
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl)
                     .asJson();

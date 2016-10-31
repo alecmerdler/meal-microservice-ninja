@@ -1,14 +1,17 @@
 package services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import models.Message;
 import org.eclipse.paho.client.mqttv3.*;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.hibernate.service.spi.ServiceException;
 import rx.Observable;
 import rx.Subscriber;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by alec on 10/18/16.
@@ -16,18 +19,15 @@ import java.util.*;
 public class MessageServiceMQTT implements MessageService {
 
     // TODO: Move to configuration file
-    private final String brokerUrl = "tcp://52.25.184.170:1884";
-    private final String clientId = UUID.randomUUID().toString();
     private IMqttClient client;
-    private final MemoryPersistence persistence;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final List<Message> messages = new ArrayList<>();
     private Map<String, List<Subscriber>> subscribers = new HashMap<>();
 
-    public MessageServiceMQTT() {
-        this.persistence = new MemoryPersistence();
+    @Inject
+    public MessageServiceMQTT(IMqttClient client) {
         try {
-            this.client = new MqttClient(brokerUrl, clientId, persistence);
+            this.client = client;
             this.client.setCallback(new SubscribeCallback());
             this.client.connect();
         } catch (MqttException me) {
@@ -57,11 +57,12 @@ public class MessageServiceMQTT implements MessageService {
     }
 
     @Override
-    public void sendMessage(Message message) throws Exception {
+    public void publish(Message message) throws Exception {
         try {
             if (!client.isConnected()) {
                 client.connect();
             }
+            System.out.println(message.getTopic());
             client.publish(message.getTopic(), new MqttMessage(objectMapper.writeValueAsString(message).getBytes()));
         } catch (MqttException me) {
             me.printStackTrace();
