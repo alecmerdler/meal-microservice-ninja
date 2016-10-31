@@ -150,8 +150,21 @@ public class ApplicationController {
         return response;
     }
 
-    public Result updateMeal(@PathParam("id") Long id, Context context, Meal updatedMeal) {
-        throw new BadRequestException("Route not implemented");
+    public Result updateMeal(@PathParam("id") Long id, Context context, Meal meal) {
+        Meal updatedMeal = null;
+        try {
+            Optional<Meal> mealOptional = mealService.updateMeal(meal);
+            if (mealOptional.isPresent()) {
+                updatedMeal = mealOptional.get();
+                messageService.publish(new Message("meals", id, "update"));
+            }
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
+        }
+
+        return json()
+                .status(200)
+                .render(updatedMeal);
     }
 
     public Result destroyMeal(@PathParam("id") Long id) {

@@ -64,6 +64,9 @@ public class BaseDao<T extends Model> implements Dao<T> {
         if (model == null) {
             throw new PersistenceException("Model should not be null");
         }
+        if (model.getId() == null) {
+            throw new PersistenceException("Model has not been persisted");
+        }
         EntityManager entityManager = entityManagerProvider.get();
         T updatedModel = entityManager.merge(model);
         entityManager.flush();

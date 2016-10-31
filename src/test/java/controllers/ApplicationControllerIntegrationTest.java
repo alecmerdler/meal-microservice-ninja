@@ -208,17 +208,58 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
 
     @Test
     public void testRetrieveMealExists() {
+        Meal meal = mealDao.create(new Meal("Bananas", new Long(21)));
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "/" + meal.getId())
+                    .asJson();
+            Meal responseMeal = objectMapper.readValue(response.getBody().toString(), Meal.class);
 
+            assertEquals(200, response.getStatus());
+            assertEquals(meal.getId(), responseMeal.getId());
+            assertEquals(meal.getMealName(), responseMeal.getMealName());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
     public void testUpdateMealExists() {
+        Meal meal = mealDao.create(new Meal("Bananas", new Long(21)));
+        String newMealName = "Plantains";
+        meal.setMealName(newMealName);
+        try {
+            HttpResponse<JsonNode> response = Unirest.put(mealsUrl + "/" + meal.getId())
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(meal)
+                    .asJson();
+            Meal responseMeal = objectMapper.readValue(response.getBody().toString(), Meal.class);
 
+            assertEquals(200, response.getStatus());
+            assertEquals(meal.getId(), responseMeal.getId());
+            assertEquals(newMealName, responseMeal.getMealName());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
     public void testUpdateMealDoesNotExist() {
+        Meal meal = new Meal("Steak", new Long(81));
+        String newMealName = "Plantains";
+        meal.setMealName(newMealName);
+        try {
+            HttpResponse<JsonNode> response = Unirest.put(mealsUrl + "/" + meal.getId())
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(meal)
+                    .asJson();
+            Map<String, Object> responseBody = objectMapper.readValue(response.getBody().toString(), new TypeReference<Map>(){});
 
+            assertEquals(400, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
