@@ -90,7 +90,7 @@ public class MealServiceImpl implements MealService {
     public Optional<Meal> updateMeal(Meal meal) throws ServiceException {
         final Meal updatedMeal;
         if (meal == null) {
-            throw new ServiceException("Meal shoud not be null");
+            throw new ServiceException("Meal should not be null");
         }
         try {
             updatedMeal = mealDao.update(meal);

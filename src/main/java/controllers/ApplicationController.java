@@ -156,7 +156,7 @@ public class ApplicationController {
             Optional<Meal> mealOptional = mealService.updateMeal(meal);
             if (mealOptional.isPresent()) {
                 updatedMeal = mealOptional.get();
-                messageService.publish(new Message("meals", id, "update"));
+                messageService.publish(new Message("meals", id, "update", meal.mapProperties(), meal.mapProperties()));
             }
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage());

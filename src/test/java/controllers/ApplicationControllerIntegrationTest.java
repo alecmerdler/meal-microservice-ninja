@@ -263,12 +263,20 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
     }
 
     @Test
-    public void testDestroyMealExists() {
+    public void testDestroyMealDoesNotExist() {
+        Meal meal = new Meal("Steak", new Long(32), null, new Long(2));
+        try {
+            HttpResponse<JsonNode> response = Unirest.delete(mealsUrl + "/" + meal.getId())
+                    .asJson();
 
+            assertEquals(404, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
-    public void testDestroyMealDoesNotExist() {
+    public void testDestroyMealExists() {
         Meal meal = new Meal("Bananas", new Long(43));
         mealDao.create(meal);
         try {
