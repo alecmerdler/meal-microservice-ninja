@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public class MessageServiceMQTT implements MessageService {
 
-    // TODO: Move to configuration file
     private IMqttClient client;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final List<Message> messages = new ArrayList<>();

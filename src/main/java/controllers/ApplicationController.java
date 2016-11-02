@@ -16,7 +16,6 @@
 
 package controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dao.MealDao;
@@ -37,12 +36,9 @@ import java.util.*;
 
 import static ninja.Results.json;
 
-
 @Singleton
 public class ApplicationController {
 
-    private final String serviceUrl = "http://localhost:8080";
-    private final ObjectMapper objectMapper;
     private final MessageService messageService;
     private final MealService mealService;
     private final MealDao mealDao;
@@ -50,7 +46,6 @@ public class ApplicationController {
 
     @Inject
     public ApplicationController(MealDao mealDao, TagDao tagDao, MessageService messageService, MealService mealService) {
-        this.objectMapper = new ObjectMapper();
         this.messageService = messageService;
         this.mealService = mealService;
         this.mealDao = mealDao;
@@ -64,10 +59,8 @@ public class ApplicationController {
                 .subscribe((Message message) -> {
                     if (message.getAction().equals("destroy")) {
                         try {
-                            List<Meal> mealsWithChefId = mealService.listMealsByChefId(message.getResourceId());
-                            for (Meal meal : mealsWithChefId) {
-                                mealService.destroyMeal(meal);
-                            }
+                            rx.Observable.from(mealService.listMealsByChefId(message.getResourceId()))
+                                    .subscribe(mealService::destroyMeal);
                         } catch (ServiceException se) {
                             System.out.println(se.getMessage());
                         }

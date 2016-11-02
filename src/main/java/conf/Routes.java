@@ -42,5 +42,4 @@ public class Routes implements ApplicationRoutes {
         router.PUT().route(mealsUrl + "/{id}").with(ApplicationController.class, "updateMeal");
         router.DELETE().route(mealsUrl + "/{id}").with(ApplicationController.class, "destroyMeal");
     }
-
 }
