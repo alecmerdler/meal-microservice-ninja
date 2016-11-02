@@ -162,6 +162,40 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
     }
 
     @Test
+    public void testListMealsByChefIdNoneExist() {
+        Long chefId = new Long(76);
+        mealDao.create(new Meal("Bananas"));
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?chefId=" + chefId)
+                    .asJson();
+            List<Meal> mealsWithChefId = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
+
+            assertEquals(200, response.getStatus());
+            assertEquals(0, mealsWithChefId.size());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testListMealsByChefIdSomeExist() {
+        Long chefId = new Long(77);
+        mealDao.create(new Meal("Bananas", chefId));
+        mealDao.create(new Meal("Steak", chefId));
+        mealDao.create(new Meal("Raisins"));
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?chefId=" + chefId)
+                    .asJson();
+            List<Meal> mealsWithChefId = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
+
+            assertEquals(200, response.getStatus());
+            assertEquals(2, mealsWithChefId.size());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void testCreateMealValid() {
         Meal meal = new Meal("Banana", new Long(1), new ArrayList<>());
         try {

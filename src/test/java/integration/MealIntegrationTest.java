@@ -14,13 +14,15 @@ import org.codehaus.jackson.type.TypeReference;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import rx.Observable;
 import services.MessageService;
 import utils.UnirestObjectMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Created by alec on 10/25/16.
@@ -98,5 +100,62 @@ public class MealIntegrationTest extends NinjaTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void testUserUpdatedUpdatesAssociatedMeals() {
+        Long chefId = new Long(32);
+        Map<String, Object> user = new HashMap<>();
+        user.put("id", new Long(89));
+        mealDao.create(new Meal("Bananas", chefId));
+        mealDao.create(new Meal("Steak", chefId));
+        mealDao.create(new Meal("Ice Cream", new Long(76)));
+        try {
+            Unirest.post(initializeUrl).asJson();
+            messageService.publish(new Message("users", chefId, "update", user, user));
+            Thread.sleep(2000);
+            HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?chefId=" + chefId)
+                    .asJson();
+            List<Meal> meals = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
+
+            assertEquals(200, response.getStatus());
+            Observable.from(meals)
+                    .subscribe((Meal meal) -> {
+                        assertNotEquals(chefId, meal.getChefId());
+                    });
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateMealPublishesMessage() {
+        messageService.subscribe("meals", true)
+                .subscribe((Message message) -> {
+                    assertEquals("create", message.getAction());
+                    fail();
+                });
+        Meal meal = new Meal("Bananas", new Long(21));
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl)
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(meal)
+                    .asJson();
+
+            assertEquals(201, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdateMealPublishesMessage() {
+
+    }
+
+    @Test
+    public void testDestroyMealPublishesMessage() {
+
     }
 }

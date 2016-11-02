@@ -57,13 +57,24 @@ public class ApplicationController {
         messageService.subscribe("users", true)
                 .subscribeOn(Schedulers.newThread())
                 .subscribe((Message message) -> {
-                    if (message.getAction().equals("destroy")) {
-                        try {
-                            rx.Observable.from(mealService.listMealsByChefId(message.getResourceId()))
-                                    .subscribe(mealService::destroyMeal);
-                        } catch (ServiceException se) {
-                            System.out.println(se.getMessage());
-                        }
+                    switch (message.getAction()) {
+                        case "update":
+                            try {
+                                rx.Observable.from(mealService.listMealsByChefId(message.getResourceId()))
+                                        .subscribe((Meal meal) -> {
+                                            meal.setChefId((Long.valueOf((int) message.getChanges().get("id"))));
+                                            mealService.updateMeal(meal);
+                                        });
+                            } catch (ServiceException se) {
+                                System.out.println(se.getMessage());
+                            }
+                        case "destroy":
+                            try {
+                                rx.Observable.from(mealService.listMealsByChefId(message.getResourceId()))
+                                        .subscribe(mealService::destroyMeal);
+                            } catch (ServiceException se) {
+                                System.out.println(se.getMessage());
+                            }
                     }
                 });
 
@@ -90,11 +101,15 @@ public class ApplicationController {
                 .render(messages);
     }
 
-    public Result listMeals(@Param("tagId") Long id) {
+    public Result listMeals(@Param("tagId") Long tagId,
+                            @Param("chefId") Long chefId) {
         List<Meal> allMeals = new ArrayList<>();
         try {
-            if (id != null) {
-                allMeals = mealDao.findByTagId(id);
+            if (tagId != null) {
+                allMeals = mealDao.findByTagId(tagId);
+            }
+            else if (chefId != null) {
+                allMeals = mealDao.findByChefId(chefId);
             }
             else {
                 allMeals = mealDao.findAll();
