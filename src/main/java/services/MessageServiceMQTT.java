@@ -61,7 +61,9 @@ public class MessageServiceMQTT implements MessageService {
             if (!client.isConnected()) {
                 client.connect();
             }
-            client.publish(message.getTopic(), new MqttMessage(objectMapper.writeValueAsString(message).getBytes()));
+            MqttMessage mqttMessage = new MqttMessage(objectMapper.writeValueAsString(message).getBytes());
+            mqttMessage.setQos(2);
+            client.publish(message.getTopic(), mqttMessage);
         } catch (MqttException me) {
             me.printStackTrace();
         }
@@ -124,10 +126,9 @@ public class MessageServiceMQTT implements MessageService {
                             subscriber.onNext(newMessage);
                         });
                 // FIXME: Debugging
-                Observable.from(messages)
-                        .subscribe((Message message) -> {
-                            System.out.println(message.getTopic() + ": " + message.getAction());
-                        });
+                System.out.println("\n====================================================");
+                System.out.println(newMessage.getTopic() + ": " + newMessage.getAction());
+                System.out.println("====================================================");
             } catch (Exception e) {
                 e.printStackTrace();
             }

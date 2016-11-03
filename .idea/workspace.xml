@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="45eba78f-a1e3-45a3-b5cb-ea9e8f2f4401" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/services/MessageService.java" afterPath="$PROJECT_DIR$/src/main/java/services/MessageService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java" afterPath="$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
     </list>
@@ -53,8 +51,8 @@
       <file leaf-file-name="MealIntegrationTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="115" column="26" selection-start-line="115" selection-start-column="26" selection-end-line="115" selection-end-column="26" />
+            <state relative-caret-position="-1122">
+              <caret line="114" column="58" selection-start-line="114" selection-start-column="58" selection-end-line="114" selection-end-column="58" />
               <folding>
                 <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
                 <element signature="e#1536#1537#0" expanded="true" />
@@ -67,8 +65,8 @@
       <file leaf-file-name="ApplicationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="217" column="30" selection-start-line="217" selection-start-column="30" selection-end-line="217" selection-end-column="30" />
+            <state relative-caret-position="2463">
+              <caret line="189" column="13" selection-start-line="189" selection-start-column="13" selection-end-line="189" selection-end-column="13" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -79,8 +77,8 @@
       <file leaf-file-name="MessageServiceMQTT.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+            <state relative-caret-position="474">
+              <caret line="130" column="36" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="36" />
               <folding>
                 <element signature="docComment;class#MessageServiceMQTT#0" expanded="false" />
                 <element signature="method#deliveryComplete#0;class#SubscribeCallback#0;class#MessageServiceMQTT#0" expanded="false" />
@@ -153,8 +151,8 @@
         <option value="$PROJECT_DIR$/src/main/java/conf/Routes.java" />
         <option value="$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
-        <option value="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/services/MessageService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java" />
       </list>
     </option>
@@ -623,7 +621,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals">
+  <component name="RunManager" selected="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic">
     <configuration default="false" name="MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1487,8 +1485,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealPublishesMessage" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealExists" />
@@ -1528,7 +1526,7 @@
       <workItem from="1477594626892" duration="10340000" />
       <workItem from="1477868457895" duration="18140000" />
       <workItem from="1478028478833" duration="4745000" />
-      <workItem from="1478048619761" duration="27384000" />
+      <workItem from="1478048619761" duration="29450000" />
     </task>
     <servers />
   </component>
@@ -1539,25 +1537,25 @@
     <history-entry file="ApplicationControllerIntegrationTest_testPurchaseMealDoesNotExist - 2016.11.02 at 18h 39m 57s.xml">
       <configuration name="ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 17h 49m 13s.xml">
-      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 17h 49m 57s.xml">
-      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 17h 50m 37s.xml">
-      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 17h 50m 52s.xml">
-      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 17h 51m 13s.xml">
-      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 23h 31m 48s.xml">
       <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
     </history-entry>
     <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 23h 35m 38s.xml">
+      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.03 at 11h 38m 33s.xml">
+      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.03 at 11h 49m 13s.xml">
+      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.03 at 11h 49m 36s.xml">
+      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.03 at 11h 49m 54s.xml">
+      <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.03 at 11h 50m 12s.xml">
       <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
     </history-entry>
     <history-entry file="MealIntegrationTest_testUserUpdatedUpdatesAssociatedMeals - 2016.11.02 at 23h 36m 41s.xml">
@@ -1565,7 +1563,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="290282000" />
+    <option name="totallyTimeSpent" value="292348000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="900" extended-state="6" />
@@ -1618,7 +1616,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="208" />
+      <option name="time" value="210" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
@@ -1631,7 +1629,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDaoImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/assets/css/custom.css" />
     <entry file="file://$PROJECT_DIR$/ninja-service.iml">
       <provider selected="true" editor-type-id="text-editor">
@@ -1893,14 +1890,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dao/BaseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/models/MealTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1985,16 +1974,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="217" column="30" selection-start-line="217" selection-start-column="30" selection-end-line="217" selection-end-column="30" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/services/MessageService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -2005,10 +1984,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/paho/org.eclipse.paho.client.mqttv3/1.1.0/org.eclipse.paho.client.mqttv3-1.1.0-sources.jar!/org/eclipse/paho/client/mqttv3/MqttMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="161" column="49" selection-start-line="161" selection-start-column="42" selection-end-line="161" selection-end-column="49" />
+          <folding>
+            <element signature="e#1860#1861#0" expanded="true" />
+            <element signature="e#1886#1887#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dao/BaseDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2">
+          <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+        <state relative-caret-position="474">
+          <caret line="130" column="36" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="36" />
           <folding>
             <element signature="docComment;class#MessageServiceMQTT#0" expanded="false" />
             <element signature="method#deliveryComplete#0;class#SubscribeCallback#0;class#MessageServiceMQTT#0" expanded="false" />
@@ -2016,10 +2014,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2463">
+          <caret line="189" column="13" selection-start-line="189" selection-start-column="13" selection-end-line="189" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="115" column="26" selection-start-line="115" selection-start-column="26" selection-end-line="115" selection-end-column="26" />
+        <state relative-caret-position="-1122">
+          <caret line="114" column="58" selection-start-line="114" selection-start-column="58" selection-end-line="114" selection-end-column="58" />
           <folding>
             <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
             <element signature="e#1536#1537#0" expanded="true" />
