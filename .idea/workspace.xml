@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45eba78f-a1e3-45a3-b5cb-ea9e8f2f4401" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/conf/Routes.java" afterPath="$PROJECT_DIR$/src/main/java/conf/Routes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
     </list>
     <ignored path="ninja-service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApplicationControllerIntegrationTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ApplicationControllerIntegrationTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="351" column="0" selection-start-line="351" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
+            <state relative-caret-position="202">
+              <caret line="330" column="82" selection-start-line="330" selection-start-column="82" selection-end-line="330" selection-end-column="82" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -52,7 +50,7 @@
       <file leaf-file-name="MealIntegrationTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="47">
+            <state relative-caret-position="1222">
               <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
               <folding>
                 <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
@@ -63,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApplicationController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ApplicationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="211" column="61" selection-start-line="211" selection-start-column="61" selection-end-line="211" selection-end-column="61" />
+            <state relative-caret-position="449">
+              <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -139,9 +137,9 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java" />
         <option value="$PROJECT_DIR$/src/main/java/conf/Routes.java" />
-        <option value="$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
+        <option value="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java" />
       </list>
     </option>
   </component>
@@ -609,33 +607,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic">
-    <configuration default="false" name="ApplicationControllerIntegrationTest.testListMealsByChefIdSomeExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="meal-microservice-ninja" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="controllers" />
-      <option name="MAIN_CLASS_NAME" value="controllers.ApplicationControllerIntegrationTest" />
-      <option name="METHOD_NAME" value="testListMealsByChefIdSomeExist" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist">
     <configuration default="false" name="MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -727,6 +699,32 @@
       <option name="PACKAGE_NAME" value="integration" />
       <option name="MAIN_CLASS_NAME" value="integration.MealIntegrationTest" />
       <option name="METHOD_NAME" value="testPurchaseMealSubscribesToTopic" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="meal-microservice-ninja" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="controllers" />
+      <option name="MAIN_CLASS_NAME" value="controllers.ApplicationControllerIntegrationTest" />
+      <option name="METHOD_NAME" value="testPurchaseMealDoesNotExist" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -1465,19 +1463,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Maven.Quickstart [ninja:run]" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testListMealsByChefIdSomeExist" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealExists" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealPublishesMessage" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealExists" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealPublishesMessage" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealPublishesMessage" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealExists" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testListMealsByChefIdSomeExist" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealSubscribesToTopic" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testPurchaseMealPublishesMessage" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.ApplicationControllerIntegrationTest.testPurchaseMealExists" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.MealIntegrationTest.testUserUpdatedUpdatesAssociatedMeals" />
       </list>
     </recent_temporary>
   </component>
@@ -1514,16 +1512,16 @@
       <workItem from="1477594626892" duration="10340000" />
       <workItem from="1477868457895" duration="18140000" />
       <workItem from="1478028478833" duration="4745000" />
-      <workItem from="1478048619761" duration="19281000" />
+      <workItem from="1478048619761" duration="21575000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ApplicationControllerIntegrationTest_testPurchaseMealExists - 2016.11.02 at 17h 32m 29s.xml">
-      <configuration name="ApplicationControllerIntegrationTest.testPurchaseMealExists" configurationId="JUnit" />
+    <history-entry file="ApplicationControllerIntegrationTest_testPurchaseMealDoesNotExist - 2016.11.02 at 18h 39m 13s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MealIntegrationTest_testPurchaseMealPublishesMessage - 2016.11.02 at 17h 39m 46s.xml">
-      <configuration name="MealIntegrationTest.testPurchaseMealPublishesMessage" configurationId="JUnit" />
+    <history-entry file="ApplicationControllerIntegrationTest_testPurchaseMealDoesNotExist - 2016.11.02 at 18h 39m 57s.xml">
+      <configuration name="ApplicationControllerIntegrationTest.testPurchaseMealDoesNotExist" configurationId="JUnit" />
     </history-entry>
     <history-entry file="MealIntegrationTest_testPurchaseMealSubscribesToTopic - 2016.11.02 at 17h 44m 09s.xml">
       <configuration name="MealIntegrationTest.testPurchaseMealSubscribesToTopic" configurationId="JUnit" />
@@ -1551,7 +1549,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="282179000" />
+    <option name="totallyTimeSpent" value="284473000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="900" extended-state="6" />
@@ -1564,7 +1562,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988358" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21235521" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31435964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31435964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1604,15 +1602,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java</url>
-          <line>218</line>
-          <properties />
-          <option name="timeStamp" value="206" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="207" />
+      <option name="time" value="208" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
@@ -1980,16 +1970,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="351" column="0" selection-start-line="351" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/reactivex/rxjava/1.2.1/rxjava-1.2.1.jar!/rx/internal/util/ActionSubscriber.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -2002,7 +1982,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
+        <state relative-caret-position="1222">
           <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
@@ -2014,10 +1994,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="211" column="61" selection-start-line="211" selection-start-column="61" selection-end-line="211" selection-end-column="61" />
+        <state relative-caret-position="449">
+          <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="330" column="82" selection-start-line="330" selection-start-column="82" selection-end-line="330" selection-end-column="82" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

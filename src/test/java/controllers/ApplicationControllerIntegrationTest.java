@@ -326,9 +326,9 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
 
     @Test
     public void testPurchaseMealDoesNotExist() {
-        Meal meal = new Meal("Steak");
+        Long mealId = new Long(23);
         try {
-            HttpResponse<JsonNode> response = Unirest.post(mealsUrl + "/" + meal.getId() + "/purchase")
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl + "/" + mealId + "/purchase")
                     .asJson();
 
             assertEquals(404, response.getStatus());
