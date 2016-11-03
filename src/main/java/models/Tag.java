@@ -19,7 +19,8 @@ public class Tag extends Model {
     private String tagName;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tags")
+    @ManyToMany(cascade = CascadeType.ALL,
+                mappedBy = "tags")
     private List<Meal> meals;
 
     public Tag() {

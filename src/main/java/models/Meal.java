@@ -16,8 +16,11 @@ public class Meal extends Model {
     @Column(nullable = false)
     private Long chefId;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name="meal_tag", joinColumns = @JoinColumn(name = "meal_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @ManyToMany(cascade = CascadeType.ALL,
+                fetch = FetchType.EAGER)
+    @JoinTable(name="meal_tag",
+               joinColumns = @JoinColumn(name = "meal_id"),
+               inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 
     public Meal() {
