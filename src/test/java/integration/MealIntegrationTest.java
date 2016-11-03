@@ -67,7 +67,7 @@ public class MealIntegrationTest extends NinjaTest {
         try {
             Unirest.post(initializeUrl).asJson();
             messageService.publish(new Message("users", chefId, "destroy"));
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl)
                     .asJson();
             List<Meal> meals = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});
@@ -113,7 +113,7 @@ public class MealIntegrationTest extends NinjaTest {
         try {
             Unirest.post(initializeUrl).asJson();
             messageService.publish(new Message("users", chefId, "update", user, user));
-            Thread.sleep(2000);
+            Thread.sleep(4000);
             HttpResponse<JsonNode> response = Unirest.get(mealsUrl + "?chefId=" + chefId)
                     .asJson();
             List<Meal> meals = objectMapper.readValue(response.getBody().toString(), new TypeReference<List<Meal>>(){});

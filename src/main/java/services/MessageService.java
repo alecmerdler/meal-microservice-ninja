@@ -17,5 +17,7 @@ public interface MessageService {
 
     void publish(Message message) throws Exception;
 
+    Observable<Message> request(String responseTopic, Message message) throws Exception;
+
     void stop() throws ServiceException;
 }

@@ -204,7 +204,9 @@ public class ApplicationController {
             Optional<Meal> mealOptional = mealService.retrieveMealById(id);
             if (mealOptional.isPresent()) {
                 Map<String, Object> responseBody = new HashMap<>();
-                messageService.subscribe("purchases", true)
+                Map<String, Object> messageState = new HashMap<>();
+                messageState.put("userId", requestBody.get("userId"));
+                messageService.request("purchases", new Message("meals", id, "purchase", messageState, mealOptional.get().mapProperties()))
                         .subscribeOn(Schedulers.newThread())
                         .subscribe((Message message) -> {
                             if (message.getAction().equals("create") && Long.valueOf((int) message.getState().get("mealId")).equals(id)) {
@@ -212,9 +214,7 @@ public class ApplicationController {
                                 responseBody.put("status", "purchase created");
                             }
                         });
-                Map<String, Object> messageState = new HashMap<>();
-                messageState.put("userId", requestBody.get("userId"));
-                messageService.publish(new Message("meals", id, "purchase", messageState, mealOptional.get().mapProperties()));
+                // FIXME: Wait until message response received to send HTTP response
                 Thread.sleep(2000);
                 response = json()
                         .status(200)
