@@ -133,10 +133,10 @@ public class MealIntegrationTest extends NinjaTest {
         messageService.subscribe("meals", true)
                 .subscribe((Message message) -> {
                     assertEquals("create", message.getAction());
-                    fail();
                 });
         Meal meal = new Meal("Bananas", new Long(21));
         try {
+            Unirest.post(initializeUrl).asJson();
             HttpResponse<JsonNode> response = Unirest.post(mealsUrl)
                     .header("accept", "application/json")
                     .header("Content-Type", "application/json")
@@ -157,5 +157,65 @@ public class MealIntegrationTest extends NinjaTest {
     @Test
     public void testDestroyMealPublishesMessage() {
 
+    }
+
+    @Test
+    public void testPurchaseMealPublishesMessage() {
+        messageService.subscribe("meals", true)
+                .subscribe((Message message) -> {
+                    assertEquals("purchase", message.getAction());
+                });
+        Meal meal = mealDao.create(new Meal("Bananas"));
+        try {
+            Unirest.post(initializeUrl).asJson();
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("userId", new Long(99));
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl + "/" + meal.getId() + "/purchase")
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(requestBody)
+                    .asJson();
+            Map<String, Object> responseBody = objectMapper.readValue(response.getBody().toString(), new TypeReference<Map>(){});
+
+            assertEquals(200, response.getStatus());
+            assertEquals("purchase created", responseBody.get("status"));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testPurchaseMealSubscribesToTopic() {
+        messageService.subscribe("meals", true)
+                .subscribe((Message message) -> {
+                    if (message.getAction().equals("purchase")) {
+                        Long purchaseId = new Long(43);
+                        Map<String, Object> messageState = new HashMap<>();
+                        messageState.put("mealId", message.getResourceId());
+                        try {
+                            messageService.publish(new Message("purchases", purchaseId, "create", messageState, new HashMap<>()));
+                        } catch (Exception e) {
+                            fail(e.getMessage());
+                        }
+                    }
+                });
+        Meal meal = mealDao.create(new Meal("Bananas"));
+        try {
+            Unirest.post(initializeUrl).asJson();
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("userId", new Long(99));
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl + "/" + meal.getId() + "/purchase")
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(requestBody)
+                    .asJson();
+            Map<String, Object> responseBody = objectMapper.readValue(response.getBody().toString(), new TypeReference<Map>(){});
+
+            assertEquals(200, response.getStatus());
+            assertEquals("purchase created", responseBody.get("status"));
+            assertTrue(responseBody.containsKey("purchaseId"));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 }

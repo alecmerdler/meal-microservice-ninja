@@ -194,4 +194,36 @@ public class ApplicationController {
 
         return response;
     }
+
+    // TODO: Define request body
+    public Result purchaseMeal(@PathParam("id") Long id, Context context, Map<String, Object> requestBody) {
+        Result response = json()
+                .status(404)
+                .render(new HashMap<>());
+        try {
+            Optional<Meal> mealOptional = mealService.retrieveMealById(id);
+            if (mealOptional.isPresent()) {
+                Map<String, Object> responseBody = new HashMap<>();
+                messageService.subscribe("purchases", true)
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe((Message message) -> {
+                            if (message.getAction().equals("create") && Long.valueOf((int) message.getState().get("mealId")).equals(id)) {
+                                responseBody.put("purchaseId", message.getResourceId());
+                                responseBody.put("status", "purchase created");
+                            }
+                        });
+                Map<String, Object> messageState = new HashMap<>();
+                messageState.put("userId", requestBody.get("userId"));
+                messageService.publish(new Message("meals", id, "purchase", messageState, mealOptional.get().mapProperties()));
+                Thread.sleep(2000);
+                response = json()
+                        .status(200)
+                        .render(responseBody);
+            }
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
+        }
+
+        return response;
+    }
 }

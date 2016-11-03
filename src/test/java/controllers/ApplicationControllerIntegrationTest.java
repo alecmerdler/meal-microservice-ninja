@@ -35,6 +35,7 @@ import services.MessageService;
 import utils.UnirestObjectMapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -318,6 +319,39 @@ public class ApplicationControllerIntegrationTest extends NinjaTest {
                     .asJson();
 
             assertEquals(204, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testPurchaseMealDoesNotExist() {
+        Meal meal = new Meal("Steak");
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl + "/" + meal.getId() + "/purchase")
+                    .asJson();
+
+            assertEquals(404, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testPurchaseMealExists() {
+        Meal meal = new Meal("Steak");
+        mealDao.create(meal);
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("userId", new Long(29));
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(mealsUrl + "/" + meal.getId() + "/purchase")
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(requestBody)
+                    .asJson();
+            Map<String, Object> responseBody = objectMapper.readValue(response.getBody().toString(), new TypeReference<Map>(){});
+
+            assertEquals(200, response.getStatus());
         } catch (Exception e) {
             fail(e.getMessage());
         }
