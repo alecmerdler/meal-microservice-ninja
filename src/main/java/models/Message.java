@@ -2,6 +2,7 @@ package models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +40,12 @@ public class Message {
 
     @JsonIgnore
     public String getTopic() {
-        return resourceName + "/" + resourceId;
+        String topic = resourceName + "/" + resourceId;
+        if (!Arrays.asList("create", "retrieve", "update", "destroy").contains(action)) {
+            topic = topic.concat("/" + action);
+        }
+
+        return topic;
     }
 
     public String getResourceName() {

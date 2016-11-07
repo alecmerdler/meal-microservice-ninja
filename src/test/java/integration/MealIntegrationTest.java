@@ -186,14 +186,13 @@ public class MealIntegrationTest extends NinjaTest {
 
     @Test
     public void testPurchaseMealSubscribesToTopic() {
-        messageService.subscribe("meals", true)
+        messageService.subscribe("meals/+/purchase", false)
                 .subscribe((Message message) -> {
                     if (message.getAction().equals("purchase")) {
-                        Long purchaseId = new Long(43);
                         Map<String, Object> messageState = new HashMap<>();
                         messageState.put("mealId", message.getResourceId());
                         try {
-                            messageService.publish(new Message("purchases", purchaseId, "create", messageState, new HashMap<>()));
+                            messageService.publish(new Message("purchases", new Long(43), "create", messageState, new HashMap<>()));
                         } catch (Exception e) {
                             fail(e.getMessage());
                         }

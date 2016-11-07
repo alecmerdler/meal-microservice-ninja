@@ -44,10 +44,10 @@ public class MessageServiceMQTT implements MessageService {
         return Observable.create((subscriber) -> {
             String wildcard = "";
             if (subscribeToAll) {
-                wildcard = "+";
+                wildcard = "/+";
             }
             try {
-                client.subscribe(topic + "/" + wildcard);
+                client.subscribe(topic + wildcard);
                 addSubscriberToTopic(topic, subscriber);
             } catch (MqttException me) {
                 me.printStackTrace();
@@ -121,10 +121,9 @@ public class MessageServiceMQTT implements MessageService {
             try {
                 Message newMessage = objectMapper.readValue(mqttMessage.getPayload(), Message.class);
                 messages.add(newMessage);
-                Observable.from(subscribers.get(newMessage.getResourceName()))
-                        .subscribe((Subscriber subscriber) -> {
-                            subscriber.onNext(newMessage);
-                        });
+                for (Subscriber subscriber : subscribers.get(newMessage.getResourceName())) {
+                    subscriber.onNext(newMessage);
+                }
                 // FIXME: Debugging
                 System.out.println("\n====================================================");
                 System.out.println(newMessage.getTopic() + ": " + newMessage.getAction());
