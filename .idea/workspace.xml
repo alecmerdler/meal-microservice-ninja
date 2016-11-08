@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45eba78f-a1e3-45a3-b5cb-ea9e8f2f4401" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
     </list>
     <ignored path="ninja-service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1502,7 +1502,7 @@
       <workItem from="1477868457895" duration="18140000" />
       <workItem from="1478028478833" duration="4745000" />
       <workItem from="1478048619761" duration="31708000" />
-      <workItem from="1478467804154" duration="23308000" />
+      <workItem from="1478467804154" duration="23542000" />
     </task>
     <servers />
   </component>
@@ -1539,7 +1539,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="317914000" />
+    <option name="totallyTimeSpent" value="318148000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="900" extended-state="6" />
