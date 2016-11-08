@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45eba78f-a1e3-45a3-b5cb-ea9e8f2f4401" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java" afterPath="$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
     </list>
     <ignored path="ninja-service.iws" />
@@ -29,8 +27,10 @@
       <file leaf-file-name="MealIntegrationTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-748">
-              <caret line="52" column="59" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="59" />
+            <state relative-caret-position="34">
+              <caret line="115" column="27" selection-start-line="115" selection-start-column="27" selection-end-line="115" selection-end-column="27" />
+              <caret line="69" column="27" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
+              <caret line="91" column="27" selection-start-line="91" selection-start-column="27" selection-end-line="91" selection-end-column="27" />
               <folding>
                 <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
               </folding>
@@ -51,8 +51,8 @@
       <file leaf-file-name="MessageServiceMQTT.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="39" column="5" selection-start-line="0" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+            <state relative-caret-position="86">
+              <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
               <folding>
                 <element signature="docComment;class#MessageServiceMQTT#0" expanded="false" />
                 <element signature="method#deliveryComplete#0;class#SubscribeCallback#0;class#MessageServiceMQTT#0" expanded="false" />
@@ -153,9 +153,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="-29" />
     <option name="width" value="1600" />
-    <option name="height" value="929" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -1503,7 +1502,7 @@
       <workItem from="1477868457895" duration="18140000" />
       <workItem from="1478028478833" duration="4745000" />
       <workItem from="1478048619761" duration="31708000" />
-      <workItem from="1478467804154" duration="20408000" />
+      <workItem from="1478467804154" duration="23308000" />
     </task>
     <servers />
   </component>
@@ -1540,10 +1539,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="315014000" />
+    <option name="totallyTimeSpent" value="317914000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-29" width="1600" height="929" extended-state="6" />
+    <frame x="0" y="0" width="1600" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1985,8 +1984,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="39" column="5" selection-start-line="0" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+        <state relative-caret-position="86">
+          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
           <folding>
             <element signature="docComment;class#MessageServiceMQTT#0" expanded="false" />
             <element signature="method#deliveryComplete#0;class#SubscribeCallback#0;class#MessageServiceMQTT#0" expanded="false" />
@@ -1996,8 +1995,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-748">
-          <caret line="52" column="59" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="59" />
+        <state relative-caret-position="34">
+          <caret line="115" column="27" selection-start-line="115" selection-start-column="27" selection-end-line="115" selection-end-column="27" />
+          <caret line="69" column="27" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
+          <caret line="91" column="27" selection-start-line="91" selection-start-column="27" selection-end-line="91" selection-end-column="27" />
           <folding>
             <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
           </folding>
