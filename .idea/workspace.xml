@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45eba78f-a1e3-45a3-b5cb-ea9e8f2f4401" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/conf/Module.java" afterPath="$PROJECT_DIR$/src/main/java/conf/Module.java" />
     </list>
     <ignored path="ninja-service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,7 +24,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MealIntegrationTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MealIntegrationTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
@@ -40,8 +39,8 @@
       <file leaf-file-name="ApplicationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="725">
-              <caret line="172" column="49" selection-start-line="170" selection-start-column="16" selection-end-line="172" selection-end-column="49" />
+            <state relative-caret-position="249">
+              <caret line="144" column="48" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -62,12 +61,22 @@
       <file leaf-file-name="MessageServiceMQTT.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
+            <state relative-caret-position="2142">
               <caret line="143" column="26" selection-start-line="143" selection-start-column="26" selection-end-line="143" selection-end-column="26" />
               <folding>
                 <element signature="docComment;class#MessageServiceMQTT#0" expanded="false" />
                 <element signature="method#deliveryComplete#0;class#SubscribeCallback#0;class#MessageServiceMQTT#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Module.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/conf/Module.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,7 +130,6 @@
         <option value="$PROJECT_DIR$/src/main/java/services/MealService.java" />
         <option value="$PROJECT_DIR$/src/test/java/dao/MealDaoImplTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/conf/application.conf" />
-        <option value="$PROJECT_DIR$/src/main/java/conf/Module.java" />
         <option value="$PROJECT_DIR$/src/test/java/services/MealServiceImplTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/dao/BaseDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/services/MealServiceImpl.java" />
@@ -140,6 +148,7 @@
         <option value="$PROJECT_DIR$/src/test/java/services/MessageServiceMQTTTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java" />
         <option value="$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/conf/Module.java" />
       </list>
     </option>
   </component>
@@ -1514,7 +1523,7 @@
       <workItem from="1478028478833" duration="4745000" />
       <workItem from="1478048619761" duration="31708000" />
       <workItem from="1478467804154" duration="29173000" />
-      <workItem from="1478666741096" duration="2574000" />
+      <workItem from="1478666741096" duration="5947000" />
     </task>
     <servers />
   </component>
@@ -1551,7 +1560,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="326353000" />
+    <option name="totallyTimeSpent" value="329726000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="900" extended-state="6" />
@@ -1575,7 +1584,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29624838" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29624838" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2001287" sideWeight="0.50714284" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1604,14 +1613,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java</url>
-          <line>147</line>
-          <properties />
-          <option name="timeStamp" value="232" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="233" />
     </breakpoint-manager>
     <watches-manager>
@@ -1875,14 +1876,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/conf/Module.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/controllers/ApplicationControllerIntegrationTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -1973,9 +1966,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="187" column="28" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
+          <folding>
+            <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="144" column="48" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/services/MessageServiceMQTT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
+        <state relative-caret-position="2142">
           <caret line="143" column="26" selection-start-line="143" selection-start-column="26" selection-end-line="143" selection-end-column="26" />
           <folding>
             <element signature="docComment;class#MessageServiceMQTT#0" expanded="false" />
@@ -1984,21 +1995,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/conf/Module.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="172" column="49" selection-start-line="170" selection-start-column="16" selection-end-line="172" selection-end-column="49" />
+        <state relative-caret-position="374">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/integration/MealIntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="187" column="28" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
-          <folding>
-            <element signature="docComment;class#MealIntegrationTest#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

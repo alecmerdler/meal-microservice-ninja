@@ -52,7 +52,7 @@ public class Module extends AbstractModule {
     @Provides
     public IMqttClient provideMqttClient() {
         IMqttClient mqttClient = null;
-        final String brokerUrl = "tcp://52.25.184.170:1884";
+        final String brokerUrl = "tcp://138.68.197.76:1883";
         final String clientId = UUID.randomUUID().toString();
         final MemoryPersistence persistence = new MemoryPersistence();
         try {
