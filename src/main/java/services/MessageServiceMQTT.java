@@ -20,7 +20,7 @@ public class MessageServiceMQTT implements MessageService {
 
     private IMqttClient client;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final List<Message> messages = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
     private Map<String, List<Subscriber>> subscribers = new HashMap<>();
 
     @Inject
@@ -47,7 +47,7 @@ public class MessageServiceMQTT implements MessageService {
                 wildcard = "/+";
             }
             try {
-                client.subscribe(topic + wildcard);
+                client.subscribe(topic.concat(wildcard));
                 addSubscriberToTopic(topic + wildcard, subscriber);
             } catch (MqttException me) {
                 me.printStackTrace();
@@ -121,9 +121,7 @@ public class MessageServiceMQTT implements MessageService {
             try {
                 Message newMessage = objectMapper.readValue(mqttMessage.getPayload(), Message.class);
                 messages.add(newMessage);
-                // FIXME: Need better way to find and call registered subscribers
                 String[] incomingTopic = mqttTopic.split("/");
-
                 Observable.from(subscribers.entrySet())
                         .filter((entry) -> {
                             String[] topic = entry.getKey().split("/");
