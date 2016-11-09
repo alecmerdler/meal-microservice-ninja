@@ -125,17 +125,15 @@ public class MessageServiceMQTT implements MessageService {
                 Observable.from(subscribers.entrySet())
                         .filter((entry) -> {
                             String[] topic = entry.getKey().split("/");
-                            boolean include = false;
+                            boolean include = true;
                             if (incomingTopic.length > topic.length) {
                                 include = false;
                             }
                             else {
                                 for (int i = 0; i < incomingTopic.length; i++) {
-                                    if (topic[i].equals("+")) {
-                                        include = true;
-                                    }
-                                    else {
-                                        include = topic[i].equals(incomingTopic[i]);
+                                    if (!topic[i].equals("+") &&
+                                        !topic[i].equals(incomingTopic[i])) {
+                                        include = false;
                                     }
                                 }
                             }
