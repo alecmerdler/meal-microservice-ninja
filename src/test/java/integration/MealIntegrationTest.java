@@ -151,12 +151,44 @@ public class MealIntegrationTest extends NinjaTest {
 
     @Test
     public void testUpdateMealPublishesMessage() {
+        messageService.subscribe("meals", true)
+                .subscribe((Message message) -> {
+                   assertEquals("update", message.getAction());
+                });
+        Meal meal = mealDao.create(new Meal("Bananas", new Long(32)));
+        try {
+            Unirest.post(initializeUrl).asJson();
+            HttpResponse<JsonNode> response = Unirest.put(mealsUrl + "/" + meal.getId())
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(meal)
+                    .asJson();
 
+            assertEquals(200, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
     public void testDestroyMealPublishesMessage() {
+        messageService.subscribe("meals", true)
+                .subscribe((Message message) -> {
+                    assertEquals("update", message.getAction());
+                });
+        Meal meal = mealDao.create(new Meal("Bananas", new Long(32)));
+        try {
+            Unirest.post(initializeUrl).asJson();
+            HttpResponse<JsonNode> response = Unirest.delete(mealsUrl + "/" + meal.getId())
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(meal)
+                    .asJson();
 
+            assertEquals(204, response.getStatus());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
