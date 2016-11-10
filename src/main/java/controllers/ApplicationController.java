@@ -38,30 +38,25 @@ public class ApplicationController {
 
     public Result initialize(Context context, Map<String, Object> options) {
         // TODO: Move to initialization service
-        messageService.subscribe("users", true)
-                .subscribeOn(Schedulers.newThread())
-                .subscribe((Message message) -> {
-                    switch (message.getAction()) {
-                        case "update":
-                            try {
+        try {
+            messageService.subscribe("users", true)
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe((Message message) -> {
+                        switch (message.getAction()) {
+                            case "update":
                                 rx.Observable.from(mealService.listMealsByChefId(message.getResourceId()))
                                         .subscribe((Meal meal) -> {
                                             meal.setChefId((Long.valueOf((int) message.getChanges().get("id"))));
                                             mealService.updateMeal(meal);
                                         });
-                            } catch (ServiceException se) {
-                                System.out.println(se.getMessage());
-                            }
-                        case "destroy":
-                            try {
+                            case "destroy":
                                 rx.Observable.from(mealService.listMealsByChefId(message.getResourceId()))
                                         .subscribe(mealService::destroyMeal);
-                            } catch (ServiceException se) {
-                                System.out.println(se.getMessage());
-                            }
-                    }
-                });
-
+                        }
+                    });
+        } catch (ServiceException se) {
+            System.out.println(se.getMessage());
+        }
         Map<String, Object> response = new HashMap<>();
         response.put("status", "initialized");
 
@@ -86,7 +81,11 @@ public class ApplicationController {
     }
 
     public Result listMeals(@Param("tagId") Long tagId,
-                            @Param("chefId") Long chefId) {
+                            @Param("chefId") Long chefId,
+                            @Param("recommendedFor") Long userId,
+                            @Param("zipcode") String zipcode,
+                            @Param("range") int range,
+                            @Param("fields") String[] fields) {
         List<Meal> allMeals = new ArrayList<>();
         try {
             if (tagId != null) {
@@ -124,7 +123,8 @@ public class ApplicationController {
                 .render(createdMeal);
     }
 
-    public Result retrieveMeal(@PathParam("id") Long id) {
+    public Result retrieveMeal(@PathParam("id") Long id,
+                               @Param("fields") String[] fields) {
         Result response = json()
                 .status(404)
                 .render(new HashMap<>());
