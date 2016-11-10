@@ -207,24 +207,23 @@ public class MealIntegrationTest extends NinjaTest {
                     .header("Content-Type", "application/json")
                     .body(requestBody)
                     .asJson();
-            Map<String, Object> responseBody = objectMapper.readValue(response.getBody().toString(), new TypeReference<Map>(){});
         } catch (Exception e) {
             fail(e.getMessage());
         }
     }
 
     @Test
-    public void testPurchaseMealSubscribesToTopic() {
+    public void testPurchaseMealReceivesMessage() {
         messageService.subscribe("meals/+/purchase", false)
                 .subscribe((Message message) -> {
-                    if (message.getAction().equals("purchase")) {
-                        Map<String, Object> messageState = new HashMap<>();
-                        messageState.put("mealId", message.getResourceId());
-                        try {
-                            messageService.publish(new Message("purchases", new Long(43), "create", messageState, new HashMap<>()));
-                        } catch (Exception e) {
-                            fail(e.getMessage());
-                        }
+                    assertTrue(message.getAction().equals("purchase"));
+
+                    Map<String, Object> messageState = new HashMap<>();
+                    messageState.put("mealId", message.getResourceId());
+                    try {
+                        messageService.publish(new Message("purchases", new Long(43), "create", messageState, new HashMap<>()));
+                    } catch (Exception e) {
+                        fail(e.getMessage());
                     }
                 });
         Meal meal = mealDao.create(new Meal("Bananas"));
